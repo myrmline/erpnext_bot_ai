@@ -1,0 +1,55 @@
+/* Uses Frappe CSS variables so it follows the active ERPNext theme (light/dark) and RTL. */
+.aic { display: flex; flex-direction: column; height: calc(100vh - 200px); min-height: 420px; max-width: 980px; margin: 0 auto; }
+.aic-messages { flex: 1; overflow-y: auto; padding: var(--padding-md) var(--padding-sm); display: flex; flex-direction: column; gap: 14px; }
+.aic-row { display: flex; gap: 10px; align-items: flex-start; max-width: 100%; }
+.aic-user { justify-content: flex-end; }
+.aic-avatar { flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--control-bg); color: var(--primary); display: flex; align-items: center; justify-content: center; }
+.aic-bubble { padding: 10px 14px; border-radius: var(--border-radius-lg, 12px); max-width: min(100%, 760px); min-width: 0; line-height: 1.5; word-break: break-word; }
+.aic-bot .aic-bubble { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); }
+.aic-user .aic-bubble { background: var(--primary); color: #fff; }
+.aic-error .aic-bubble { border-color: var(--red-400, #e24c4c); background: var(--bg-red, #fff5f5); color: var(--red-600, #b52a2a); }
+.aic-retry { margin-top: 8px; }
+.aic-text code { background: var(--control-bg); padding: 0 4px; border-radius: 4px; }
+
+/* welcome + examples */
+.aic-welcome { display: flex; flex-direction: column; gap: 12px; margin: auto 0; }
+.aic-langs { display: flex; gap: 6px; padding-inline-start: 40px; }
+.aic-lang { border: 0; background: none; color: var(--text-muted); padding: 2px 8px; border-radius: 999px; font-size: var(--text-sm); }
+.aic-lang.active { background: var(--control-bg); color: var(--text-color); font-weight: 600; }
+.aic-chips { display: flex; flex-wrap: wrap; gap: 8px; padding-inline-start: 40px; }
+.aic-chip { border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 999px; padding: 6px 14px; font-size: var(--text-md); text-align: start; }
+.aic-chip:hover, .aic-chip:focus-visible { border-color: var(--primary); color: var(--primary); }
+
+/* stats + tables */
+.aic-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.aic-stat { background: var(--control-bg); border-radius: var(--border-radius-md); padding: 10px 14px; min-width: 130px; }
+.aic-stat-value { font-size: var(--text-2xl, 20px); font-weight: 700; line-height: 1.2; }
+.aic-stat-label { color: var(--text-muted); font-size: var(--text-sm); }
+.aic-table-block { margin-top: 10px; }
+.aic-table-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+.aic-table-title { font-weight: 600; }
+.aic-table-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: var(--border-radius-md); }
+.aic-table { margin: 0; font-size: var(--text-sm); white-space: nowrap; }
+.aic-table th { background: var(--control-bg); font-weight: 600; }
+.aic-table .aic-num { text-align: end; font-variant-numeric: tabular-nums; }
+.aic-table-foot { margin-top: 4px; }
+
+/* composer */
+.aic-composer { display: flex; gap: 8px; align-items: flex-end; padding-top: var(--padding-sm); border-top: 1px solid var(--border-color); }
+.aic-input { resize: none; max-height: 140px; border-radius: var(--border-radius-lg, 12px); }
+.aic-send { height: 34px; width: 40px; padding: 0; display: flex; align-items: center; justify-content: center; }
+.aic-hint { text-align: center; padding: 6px 0 0; }
+
+/* typing indicator */
+.aic-typing .aic-bubble { display: flex; gap: 4px; padding: 14px; }
+.aic-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); animation: aic-bounce 1.2s infinite ease-in-out; }
+.aic-dot:nth-child(2) { animation-delay: .15s; }
+.aic-dot:nth-child(3) { animation-delay: .3s; }
+@keyframes aic-bounce { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .aic-dot { animation: none; opacity: .6; } }
+
+@media (max-width: 768px) {
+	.aic { height: calc(100vh - 170px); }
+	.aic-chips, .aic-langs { padding-inline-start: 0; }
+	.aic-bubble { max-width: 100%; }
+}
