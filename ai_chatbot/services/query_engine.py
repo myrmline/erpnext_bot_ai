@@ -92,7 +92,10 @@ def _col(fieldname, fmap, doctype, lang):
 
 
 def _count_docs(doctype, filters):
-	rows = frappe.get_list(doctype, filters=filters, fields=["count(name) as count"], limit_page_length=1)
+	rows = frappe.get_list(
+		doctype, filters=filters, fields=["count(name) as count"], limit_page_length=1,
+		ignore_permissions=security.is_super(),
+	)
 	return cint(rows[0].get("count")) if rows else 0
 
 
@@ -142,6 +145,7 @@ def _list(doctype, fmap, filters, step, lang):
 		filters=filters,
 		order_by=f"`tab{doctype}`.`{ofield}` {direction}",
 		limit_page_length=limit,
+		ignore_permissions=security.is_super(),
 	)
 	total = _count_docs(doctype, filters)
 	title = _title(step) or _(doctype, lang=lang)
@@ -188,7 +192,8 @@ def _aggregate(doctype, fmap, filters, step, lang):
 
 	if not group_by:
 		rows = frappe.get_list(
-			doctype, filters=filters, fields=[f"{expr} as value", "count(name) as doc_count"], limit_page_length=1
+			doctype, filters=filters, fields=[f"{expr} as value", "count(name) as doc_count"], limit_page_length=1,
+			ignore_permissions=security.is_super(),
 		)
 		row = rows[0] if rows else {}
 		value, n = row.get("value") or 0, cint(row.get("doc_count"))
@@ -205,6 +210,7 @@ def _aggregate(doctype, fmap, filters, step, lang):
 		fields=[group_by, f"{expr} as value", "count(name) as doc_count"],
 		group_by=group_by,
 		limit_page_length=5000,
+		ignore_permissions=security.is_super(),
 	)
 	title = _title(step) or f"{value_label} — {_(fmap[group_by]['label'], lang=lang)}"
 	if not rows:

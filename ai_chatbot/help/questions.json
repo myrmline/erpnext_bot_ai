@@ -1,0 +1,3160 @@
+{
+ "version": 1,
+ "languages": [
+  "en",
+  "fr",
+  "ar"
+ ],
+ "featured": [
+  "sales_today",
+  "customers_count",
+  "sales_unpaid",
+  "purchase_summary_month",
+  "stock_status"
+ ],
+ "categories": [
+  {
+   "id": "sales",
+   "icon": "shopping-cart",
+   "enabled": true,
+   "title": {
+    "en": "Sales",
+    "fr": "Ventes",
+    "ar": "المبيعات"
+   },
+   "description": {
+    "en": "Questions about sales, customers and revenue.",
+    "fr": "Questions concernant les ventes, clients et chiffre d'affaires.",
+    "ar": "أسئلة حول المبيعات والعملاء والإيرادات."
+   },
+   "keywords": [
+    "sales",
+    "revenue",
+    "ventes",
+    "chiffre d'affaires",
+    "مبيعات",
+    "إيرادات"
+   ],
+   "doctype": "Sales Invoice",
+   "questions": [
+    {
+     "id": "sales_today",
+     "category": "sales",
+     "question": {
+      "en": "Show me today's sales.",
+      "fr": "Montre-moi les ventes d'aujourd'hui.",
+      "ar": "اعرض مبيعات اليوم."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "today"
+     ]
+    },
+    {
+     "id": "sales_total_year",
+     "category": "sales",
+     "question": {
+      "en": "What is the total sales for this year?",
+      "fr": "Quel est le total des ventes cette année ?",
+      "ar": "ما هو إجمالي المبيعات لهذه السنة؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "total",
+      "year"
+     ]
+    },
+    {
+     "id": "sales_total_month",
+     "category": "sales",
+     "question": {
+      "en": "What is the total sales for this month?",
+      "fr": "Quel est le total des ventes ce mois-ci ?",
+      "ar": "ما هو إجمالي المبيعات لهذا الشهر؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "total",
+      "month"
+     ]
+    },
+    {
+     "id": "sales_by_customer",
+     "category": "sales",
+     "question": {
+      "en": "Show sales by customer.",
+      "fr": "Afficher les ventes par client.",
+      "ar": "اعرض المبيعات حسب العميل."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "sales_by_item",
+     "category": "sales",
+     "question": {
+      "en": "Show sales by item.",
+      "fr": "Afficher les ventes par article.",
+      "ar": "اعرض المبيعات حسب الصنف."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Sales Invoice Item",
+     "enabled": false
+    },
+    {
+     "id": "sales_by_person",
+     "category": "sales",
+     "question": {
+      "en": "Show sales by sales person.",
+      "fr": "Afficher les ventes par commercial.",
+      "ar": "اعرض المبيعات حسب مندوب المبيعات."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "sales",
+      "person"
+     ],
+     "doctype": "Sales Team",
+     "enabled": false
+    },
+    {
+     "id": "sales_by_territory",
+     "category": "sales",
+     "question": {
+      "en": "Show sales by territory.",
+      "fr": "Afficher les ventes par territoire.",
+      "ar": "اعرض المبيعات حسب المنطقة."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "territory"
+     ]
+    },
+    {
+     "id": "sales_monthly",
+     "category": "sales",
+     "question": {
+      "en": "Show monthly sales.",
+      "fr": "Afficher les ventes mensuelles.",
+      "ar": "اعرض المبيعات الشهرية."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "monthly"
+     ],
+     "enabled": false
+    },
+    {
+     "id": "sales_compare_years",
+     "category": "sales",
+     "question": {
+      "en": "Compare sales between 2025 and 2026.",
+      "fr": "Comparer les ventes entre 2025 et 2026.",
+      "ar": "قارن المبيعات بين 2025 و2026."
+     },
+     "intent": "comparison",
+     "keywords": [
+      "compare",
+      "year"
+     ]
+    },
+    {
+     "id": "sales_top_customers",
+     "category": "sales",
+     "question": {
+      "en": "Which customers generated the most sales?",
+      "fr": "Quels clients ont généré le plus de ventes ?",
+      "ar": "أي العملاء حققوا أعلى المبيعات؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "top",
+      "best",
+      "customer"
+     ]
+    },
+    {
+     "id": "sales_for_customer",
+     "category": "sales",
+     "question": {
+      "en": "Show sales for customer ABC.",
+      "fr": "Afficher les ventes du client ABC.",
+      "ar": "اعرض مبيعات العميل ABC."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "sales_invoices_customer",
+     "category": "sales",
+     "question": {
+      "en": "Find sales invoices for customer ABC.",
+      "fr": "Trouver les factures de vente du client ABC.",
+      "ar": "ابحث عن فواتير المبيعات للعميل ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "invoice",
+      "customer"
+     ]
+    },
+    {
+     "id": "sales_order_find",
+     "category": "sales",
+     "question": {
+      "en": "Find Sales Order SO-00001.",
+      "fr": "Trouver la commande client SO-00001.",
+      "ar": "ابحث عن أمر البيع SO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "order",
+      "SO"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "sales_order_info",
+     "category": "sales",
+     "question": {
+      "en": "Show information about Sales Order SO-00001.",
+      "fr": "Afficher les informations de la commande client SO-00001.",
+      "ar": "اعرض معلومات أمر البيع SO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "order",
+      "SO",
+      "details"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "sales_unpaid",
+     "category": "sales",
+     "question": {
+      "en": "Show unpaid sales invoices.",
+      "fr": "Afficher les factures de vente impayées.",
+      "ar": "اعرض فواتير المبيعات غير المدفوعة."
+     },
+     "intent": "list",
+     "keywords": [
+      "unpaid",
+      "outstanding",
+      "invoice"
+     ]
+    },
+    {
+     "id": "sales_cancelled",
+     "category": "sales",
+     "question": {
+      "en": "Show cancelled sales invoices.",
+      "fr": "Afficher les factures de vente annulées.",
+      "ar": "اعرض فواتير المبيعات الملغاة."
+     },
+     "intent": "list",
+     "keywords": [
+      "cancelled",
+      "invoice"
+     ]
+    },
+    {
+     "id": "sales_submitted",
+     "category": "sales",
+     "question": {
+      "en": "Show submitted sales invoices.",
+      "fr": "Afficher les factures de vente validées.",
+      "ar": "اعرض فواتير المبيعات المعتمدة."
+     },
+     "intent": "list",
+     "keywords": [
+      "submitted",
+      "invoice"
+     ]
+    },
+    {
+     "id": "sales_invoice_by_name",
+     "category": "sales",
+     "question": {
+      "en": "Find a sales invoice by name.",
+      "fr": "Trouver une facture de vente par son nom.",
+      "ar": "ابحث عن فاتورة مبيعات بالاسم."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "invoice",
+      "name"
+     ]
+    },
+    {
+     "id": "sales_orders_customer",
+     "category": "sales",
+     "question": {
+      "en": "Find sales orders for a customer.",
+      "fr": "Trouver les commandes de vente d'un client.",
+      "ar": "ابحث عن أوامر البيع لعميل معين."
+     },
+     "intent": "list",
+     "keywords": [
+      "orders",
+      "customer"
+     ],
+     "doctype": "Sales Order"
+    }
+   ]
+  },
+  {
+   "id": "customers",
+   "icon": "users",
+   "enabled": true,
+   "title": {
+    "en": "Customers",
+    "fr": "Clients",
+    "ar": "العملاء"
+   },
+   "description": {
+    "en": "Find customers and see their sales, invoices and orders.",
+    "fr": "Trouver des clients et consulter leurs ventes, factures et commandes.",
+    "ar": "ابحث عن العملاء واطّلع على مبيعاتهم وفواتيرهم وطلباتهم."
+   },
+   "keywords": [
+    "customer",
+    "client",
+    "عميل",
+    "عملاء"
+   ],
+   "doctype": "Customer",
+   "questions": [
+    {
+     "id": "customer_find",
+     "category": "customers",
+     "question": {
+      "en": "Find customer ABC.",
+      "fr": "Trouver le client ABC.",
+      "ar": "ابحث عن العميل ABC."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "customer_search_name",
+     "category": "customers",
+     "question": {
+      "en": "Search customer by name.",
+      "fr": "Rechercher un client par nom.",
+      "ar": "ابحث عن عميل بالاسم."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "customer_info",
+     "category": "customers",
+     "question": {
+      "en": "Show customer information.",
+      "fr": "Afficher les informations du client.",
+      "ar": "اعرض معلومات العميل."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "customer_all",
+     "category": "customers",
+     "question": {
+      "en": "Show all customers.",
+      "fr": "Afficher tous les clients.",
+      "ar": "اعرض جميع العملاء."
+     },
+     "intent": "list",
+     "keywords": [
+      "list"
+     ]
+    },
+    {
+     "id": "customers_count",
+     "category": "customers",
+     "question": {
+      "en": "How many customers do we have?",
+      "fr": "Combien de clients avons-nous ?",
+      "ar": "كم عدد العملاء لدينا؟"
+     },
+     "intent": "count",
+     "keywords": [
+      "count",
+      "number"
+     ]
+    },
+    {
+     "id": "customer_tunis",
+     "category": "customers",
+     "question": {
+      "en": "Show customers in Tunis.",
+      "fr": "Afficher les clients à Tunis.",
+      "ar": "اعرض العملاء في تونس."
+     },
+     "intent": "list",
+     "keywords": [
+      "city",
+      "location"
+     ]
+    },
+    {
+     "id": "customer_territory",
+     "category": "customers",
+     "question": {
+      "en": "Show customers by territory.",
+      "fr": "Afficher les clients par territoire.",
+      "ar": "اعرض العملاء حسب المنطقة."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "territory"
+     ]
+    },
+    {
+     "id": "customer_sales",
+     "category": "customers",
+     "question": {
+      "en": "Show sales for customer ABC.",
+      "fr": "Afficher les ventes du client ABC.",
+      "ar": "اعرض مبيعات العميل ABC."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "sales"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "customer_unpaid",
+     "category": "customers",
+     "question": {
+      "en": "Show unpaid invoices for customer ABC.",
+      "fr": "Afficher les factures impayées du client ABC.",
+      "ar": "اعرض الفواتير غير المدفوعة للعميل ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "unpaid",
+      "invoice"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "customer_orders",
+     "category": "customers",
+     "question": {
+      "en": "Show orders for customer ABC.",
+      "fr": "Afficher les commandes du client ABC.",
+      "ar": "اعرض طلبات العميل ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "orders"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "customer_contact",
+     "category": "customers",
+     "question": {
+      "en": "Show customer contact information.",
+      "fr": "Afficher les coordonnées du client.",
+      "ar": "اعرض معلومات الاتصال بالعميل."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "contact",
+      "phone",
+      "email"
+     ],
+     "doctype": "Contact"
+    },
+    {
+     "id": "customer_last_order",
+     "category": "customers",
+     "question": {
+      "en": "Find the last order of customer ABC.",
+      "fr": "Trouver la dernière commande du client ABC.",
+      "ar": "ابحث عن آخر طلب للعميل ABC."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "latest",
+      "last",
+      "order"
+     ],
+     "doctype": "Sales Order"
+    }
+   ]
+  },
+  {
+   "id": "purchasing",
+   "icon": "truck",
+   "enabled": true,
+   "title": {
+    "en": "Purchasing",
+    "fr": "Achats",
+    "ar": "المشتريات"
+   },
+   "description": {
+    "en": "Questions about purchases, purchase orders and supplier invoices.",
+    "fr": "Questions sur les achats, commandes fournisseurs et factures d'achat.",
+    "ar": "أسئلة حول المشتريات وأوامر الشراء وفواتير الموردين."
+   },
+   "keywords": [
+    "purchase",
+    "buying",
+    "achat",
+    "achats",
+    "مشتريات",
+    "شراء"
+   ],
+   "doctype": "Purchase Invoice",
+   "questions": [
+    {
+     "id": "purchase_total_year",
+     "category": "purchasing",
+     "question": {
+      "en": "What is the total purchase amount this year?",
+      "fr": "Quel est le montant total des achats cette année ?",
+      "ar": "ما هو إجمالي المشتريات لهذه السنة؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "total",
+      "year"
+     ]
+    },
+    {
+     "id": "purchase_summary_month",
+     "category": "purchasing",
+     "question": {
+      "en": "Give me a summary of this month's purchases.",
+      "fr": "Donne-moi un résumé des achats de ce mois.",
+      "ar": "أعطني ملخص مشتريات هذا الشهر."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "summary",
+      "month"
+     ]
+    },
+    {
+     "id": "purchase_by_supplier",
+     "category": "purchasing",
+     "question": {
+      "en": "Show purchases by supplier.",
+      "fr": "Afficher les achats par fournisseur.",
+      "ar": "اعرض المشتريات حسب المورد."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "supplier"
+     ]
+    },
+    {
+     "id": "purchase_by_item",
+     "category": "purchasing",
+     "question": {
+      "en": "Show purchases by item.",
+      "fr": "Afficher les achats par article.",
+      "ar": "اعرض المشتريات حسب الصنف."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Purchase Invoice Item",
+     "enabled": false
+    },
+    {
+     "id": "purchase_by_month",
+     "category": "purchasing",
+     "question": {
+      "en": "Show purchases by month.",
+      "fr": "Afficher les achats par mois.",
+      "ar": "اعرض المشتريات حسب الشهر."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "monthly"
+     ],
+     "enabled": false
+    },
+    {
+     "id": "purchase_compare",
+     "category": "purchasing",
+     "question": {
+      "en": "Compare purchases between two periods.",
+      "fr": "Comparer les achats entre deux périodes.",
+      "ar": "قارن المشتريات بين فترتين."
+     },
+     "intent": "comparison",
+     "keywords": [
+      "compare",
+      "period"
+     ]
+    },
+    {
+     "id": "po_find",
+     "category": "purchasing",
+     "question": {
+      "en": "Find Purchase Order PO-00001.",
+      "fr": "Trouver la commande fournisseur PO-00001.",
+      "ar": "ابحث عن أمر الشراء PO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "order",
+      "PO"
+     ],
+     "doctype": "Purchase Order"
+    },
+    {
+     "id": "po_info",
+     "category": "purchasing",
+     "question": {
+      "en": "Show information about Purchase Order PO-00001.",
+      "fr": "Afficher les informations de la commande fournisseur PO-00001.",
+      "ar": "اعرض معلومات أمر الشراء PO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "order",
+      "PO",
+      "details"
+     ],
+     "doctype": "Purchase Order"
+    },
+    {
+     "id": "purchase_invoices_supplier",
+     "category": "purchasing",
+     "question": {
+      "en": "Find purchase invoices for supplier ABC.",
+      "fr": "Trouver les factures d'achat du fournisseur ABC.",
+      "ar": "ابحث عن فواتير الشراء للمورد ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "invoice",
+      "supplier"
+     ]
+    },
+    {
+     "id": "purchase_unpaid",
+     "category": "purchasing",
+     "question": {
+      "en": "Show unpaid purchase invoices.",
+      "fr": "Afficher les factures d'achat impayées.",
+      "ar": "اعرض فواتير الشراء غير المدفوعة."
+     },
+     "intent": "list",
+     "keywords": [
+      "unpaid",
+      "outstanding"
+     ]
+    },
+    {
+     "id": "purchase_submitted",
+     "category": "purchasing",
+     "question": {
+      "en": "Show submitted purchase invoices.",
+      "fr": "Afficher les factures d'achat validées.",
+      "ar": "اعرض فواتير الشراء المعتمدة."
+     },
+     "intent": "list",
+     "keywords": [
+      "submitted"
+     ]
+    },
+    {
+     "id": "purchase_find_supplier",
+     "category": "purchasing",
+     "question": {
+      "en": "Find supplier ABC.",
+      "fr": "Trouver le fournisseur ABC.",
+      "ar": "ابحث عن المورد ABC."
+     },
+     "intent": "lookup",
+     "doctype": "Supplier"
+    },
+    {
+     "id": "purchase_from_supplier",
+     "category": "purchasing",
+     "question": {
+      "en": "Show purchases from supplier ABC.",
+      "fr": "Afficher les achats auprès du fournisseur ABC.",
+      "ar": "اعرض المشتريات من المورد ABC."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "supplier"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "suppliers",
+   "icon": "package",
+   "enabled": true,
+   "title": {
+    "en": "Suppliers",
+    "fr": "Fournisseurs",
+    "ar": "الموردون"
+   },
+   "description": {
+    "en": "Find suppliers and see their invoices, orders and balances.",
+    "fr": "Trouver des fournisseurs et consulter leurs factures, commandes et soldes.",
+    "ar": "ابحث عن الموردين واطّلع على فواتيرهم وطلباتهم وأرصدتهم."
+   },
+   "keywords": [
+    "supplier",
+    "vendor",
+    "fournisseur",
+    "مورد",
+    "موردين"
+   ],
+   "doctype": "Supplier",
+   "questions": [
+    {
+     "id": "supplier_find",
+     "category": "suppliers",
+     "question": {
+      "en": "Find supplier ABC.",
+      "fr": "Trouver le fournisseur ABC.",
+      "ar": "ابحث عن المورد ABC."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "supplier_info",
+     "category": "suppliers",
+     "question": {
+      "en": "Show supplier information.",
+      "fr": "Afficher les informations du fournisseur.",
+      "ar": "اعرض معلومات المورد."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "suppliers_all",
+     "category": "suppliers",
+     "question": {
+      "en": "Show all suppliers.",
+      "fr": "Afficher tous les fournisseurs.",
+      "ar": "اعرض جميع الموردين."
+     },
+     "intent": "list"
+    },
+    {
+     "id": "supplier_purchases",
+     "category": "suppliers",
+     "question": {
+      "en": "Show purchases by supplier.",
+      "fr": "Afficher les achats par fournisseur.",
+      "ar": "اعرض المشتريات حسب المورد."
+     },
+     "intent": "aggregation",
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "supplier_invoices",
+     "category": "suppliers",
+     "question": {
+      "en": "Show invoices for supplier ABC.",
+      "fr": "Afficher les factures du fournisseur ABC.",
+      "ar": "اعرض فواتير المورد ABC."
+     },
+     "intent": "list",
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "supplier_pos",
+     "category": "suppliers",
+     "question": {
+      "en": "Show purchase orders for supplier ABC.",
+      "fr": "Afficher les commandes fournisseur du fournisseur ABC.",
+      "ar": "اعرض أوامر الشراء للمورد ABC."
+     },
+     "intent": "list",
+     "doctype": "Purchase Order"
+    },
+    {
+     "id": "supplier_unpaid",
+     "category": "suppliers",
+     "question": {
+      "en": "Show unpaid invoices for supplier ABC.",
+      "fr": "Afficher les factures impayées du fournisseur ABC.",
+      "ar": "اعرض الفواتير غير المدفوعة للمورد ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "unpaid"
+     ],
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "supplier_last_purchase",
+     "category": "suppliers",
+     "question": {
+      "en": "Find the last purchase from supplier ABC.",
+      "fr": "Trouver le dernier achat auprès du fournisseur ABC.",
+      "ar": "ابحث عن آخر عملية شراء من المورد ABC."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "latest",
+      "last"
+     ],
+     "doctype": "Purchase Invoice"
+    }
+   ]
+  },
+  {
+   "id": "stock",
+   "icon": "archive",
+   "enabled": true,
+   "title": {
+    "en": "Stock",
+    "fr": "Stock",
+    "ar": "المخزون"
+   },
+   "description": {
+    "en": "Questions about inventory, quantities, warehouses and stock value.",
+    "fr": "Questions sur l'inventaire, les quantités, les entrepôts et la valeur du stock.",
+    "ar": "أسئلة حول المخزون والكميات والمستودعات وقيمة المخزون."
+   },
+   "keywords": [
+    "stock",
+    "inventory",
+    "quantity",
+    "warehouse",
+    "inventaire",
+    "entrepôt",
+    "مخزون",
+    "مستودع",
+    "كمية"
+   ],
+   "doctype": "Bin",
+   "questions": [
+    {
+     "id": "stock_current",
+     "category": "stock",
+     "question": {
+      "en": "What is the current stock?",
+      "fr": "Quel est le stock actuel ?",
+      "ar": "ما هو المخزون الحالي؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "current"
+     ]
+    },
+    {
+     "id": "stock_status",
+     "category": "stock",
+     "question": {
+      "en": "Show the stock status.",
+      "fr": "Affiche l'état du stock.",
+      "ar": "اعرض حالة المخزون."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "status"
+     ]
+    },
+    {
+     "id": "stock_item",
+     "category": "stock",
+     "question": {
+      "en": "Show stock for item ITEM-001.",
+      "fr": "Afficher le stock de l'article ITEM-001.",
+      "ar": "اعرض مخزون الصنف ITEM-001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "item"
+     ]
+    },
+    {
+     "id": "stock_find_item",
+     "category": "stock",
+     "question": {
+      "en": "Find item ITEM-001.",
+      "fr": "Trouver l'article ITEM-001.",
+      "ar": "ابحث عن الصنف ITEM-001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Item"
+    },
+    {
+     "id": "stock_search_item",
+     "category": "stock",
+     "question": {
+      "en": "Search item by name.",
+      "fr": "Rechercher un article par nom.",
+      "ar": "ابحث عن صنف بالاسم."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Item"
+    },
+    {
+     "id": "stock_qty_item",
+     "category": "stock",
+     "question": {
+      "en": "Show available quantity for item ITEM-001.",
+      "fr": "Afficher la quantité disponible de l'article ITEM-001.",
+      "ar": "اعرض الكمية المتاحة للصنف ITEM-001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "available",
+      "quantity"
+     ]
+    },
+    {
+     "id": "stock_by_warehouse",
+     "category": "stock",
+     "question": {
+      "en": "Show stock by warehouse.",
+      "fr": "Afficher le stock par entrepôt.",
+      "ar": "اعرض المخزون حسب المستودع."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "warehouse"
+     ]
+    },
+    {
+     "id": "stock_warehouse_tunis",
+     "category": "stock",
+     "question": {
+      "en": "Show stock for warehouse Tunis.",
+      "fr": "Afficher le stock de l'entrepôt Tunis.",
+      "ar": "اعرض مخزون مستودع تونس."
+     },
+     "intent": "list",
+     "keywords": [
+      "warehouse"
+     ]
+    },
+    {
+     "id": "stock_item_warehouses",
+     "category": "stock",
+     "question": {
+      "en": "Which warehouses contain ITEM-001?",
+      "fr": "Quels entrepôts contiennent ITEM-001 ?",
+      "ar": "ما المستودعات التي تحتوي على ITEM-001؟"
+     },
+     "intent": "list",
+     "keywords": [
+      "warehouse",
+      "item"
+     ]
+    },
+    {
+     "id": "stock_value",
+     "category": "stock",
+     "question": {
+      "en": "Show stock value.",
+      "fr": "Afficher la valeur du stock.",
+      "ar": "اعرض قيمة المخزون."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "value",
+      "valuation"
+     ]
+    },
+    {
+     "id": "stock_low",
+     "category": "stock",
+     "question": {
+      "en": "Show low-stock items.",
+      "fr": "Afficher les articles à stock faible.",
+      "ar": "اعرض الأصناف منخفضة المخزون."
+     },
+     "intent": "list",
+     "keywords": [
+      "low",
+      "reorder"
+     ],
+     "enabled": false
+    },
+    {
+     "id": "stock_out",
+     "category": "stock",
+     "question": {
+      "en": "Show out-of-stock items.",
+      "fr": "Afficher les articles en rupture de stock.",
+      "ar": "اعرض الأصناف غير المتوفرة في المخزون."
+     },
+     "intent": "list",
+     "keywords": [
+      "out",
+      "of",
+      "stock",
+      "zero"
+     ]
+    },
+    {
+     "id": "stock_movements",
+     "category": "stock",
+     "question": {
+      "en": "Show stock movements for ITEM-001.",
+      "fr": "Afficher les mouvements de stock de ITEM-001.",
+      "ar": "اعرض حركات المخزون للصنف ITEM-001."
+     },
+     "intent": "list",
+     "keywords": [
+      "movement"
+     ],
+     "doctype": "Stock Ledger Entry"
+    },
+    {
+     "id": "stock_ledger",
+     "category": "stock",
+     "question": {
+      "en": "Show the stock ledger for ITEM-001.",
+      "fr": "Afficher le grand livre de stock de ITEM-001.",
+      "ar": "اعرض سجل المخزون للصنف ITEM-001."
+     },
+     "intent": "list",
+     "keywords": [
+      "ledger"
+     ],
+     "doctype": "Stock Ledger Entry"
+    },
+    {
+     "id": "stock_incoming",
+     "category": "stock",
+     "question": {
+      "en": "Show incoming stock.",
+      "fr": "Afficher les entrées de stock.",
+      "ar": "اعرض المخزون الوارد."
+     },
+     "intent": "list",
+     "keywords": [
+      "incoming",
+      "receipt"
+     ],
+     "doctype": "Stock Ledger Entry"
+    },
+    {
+     "id": "stock_outgoing",
+     "category": "stock",
+     "question": {
+      "en": "Show outgoing stock.",
+      "fr": "Afficher les sorties de stock.",
+      "ar": "اعرض المخزون الصادر."
+     },
+     "intent": "list",
+     "keywords": [
+      "outgoing",
+      "issue"
+     ],
+     "doctype": "Stock Ledger Entry"
+    }
+   ]
+  },
+  {
+   "id": "items",
+   "icon": "tag",
+   "enabled": true,
+   "title": {
+    "en": "Items",
+    "fr": "Articles",
+    "ar": "الأصناف"
+   },
+   "description": {
+    "en": "Search items and see their prices, stock and groups.",
+    "fr": "Rechercher des articles et consulter leurs prix, stock et groupes.",
+    "ar": "ابحث عن الأصناف واطّلع على أسعارها ومخزونها ومجموعاتها."
+   },
+   "keywords": [
+    "item",
+    "product",
+    "article",
+    "produit",
+    "صنف",
+    "منتج"
+   ],
+   "doctype": "Item",
+   "questions": [
+    {
+     "id": "item_find",
+     "category": "items",
+     "question": {
+      "en": "Find item ITEM-001.",
+      "fr": "Trouver l'article ITEM-001.",
+      "ar": "ابحث عن الصنف ITEM-001."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "item_search_name",
+     "category": "items",
+     "question": {
+      "en": "Search item by name.",
+      "fr": "Rechercher un article par nom.",
+      "ar": "ابحث عن صنف بالاسم."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "item_search_laptop",
+     "category": "items",
+     "question": {
+      "en": "Search items containing \"Laptop\".",
+      "fr": "Rechercher les articles contenant « Laptop ».",
+      "ar": "ابحث عن الأصناف التي تحتوي على \"Laptop\"."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "contains",
+      "like"
+     ]
+    },
+    {
+     "id": "item_info",
+     "category": "items",
+     "question": {
+      "en": "Show item information.",
+      "fr": "Afficher les informations de l'article.",
+      "ar": "اعرض معلومات الصنف."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "item_price",
+     "category": "items",
+     "question": {
+      "en": "Show item price.",
+      "fr": "Afficher le prix de l'article.",
+      "ar": "اعرض سعر الصنف."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "price"
+     ],
+     "doctype": "Item Price"
+    },
+    {
+     "id": "item_stock",
+     "category": "items",
+     "question": {
+      "en": "Show item stock.",
+      "fr": "Afficher le stock de l'article.",
+      "ar": "اعرض مخزون الصنف."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "stock"
+     ],
+     "doctype": "Bin"
+    },
+    {
+     "id": "item_warehouses",
+     "category": "items",
+     "question": {
+      "en": "Show item warehouses.",
+      "fr": "Afficher les entrepôts de l'article.",
+      "ar": "اعرض مستودعات الصنف."
+     },
+     "intent": "list",
+     "keywords": [
+      "warehouse"
+     ],
+     "doctype": "Bin"
+    },
+    {
+     "id": "item_group",
+     "category": "items",
+     "question": {
+      "en": "Show item group.",
+      "fr": "Afficher le groupe d'articles.",
+      "ar": "اعرض مجموعة الصنف."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "group",
+      "category"
+     ]
+    },
+    {
+     "id": "items_in_group",
+     "category": "items",
+     "question": {
+      "en": "Show items in a specific item group.",
+      "fr": "Afficher les articles d'un groupe d'articles donné.",
+      "ar": "اعرض الأصناف في مجموعة أصناف محددة."
+     },
+     "intent": "list",
+     "keywords": [
+      "group"
+     ]
+    },
+    {
+     "id": "items_inactive",
+     "category": "items",
+     "question": {
+      "en": "Show inactive items.",
+      "fr": "Afficher les articles inactifs.",
+      "ar": "اعرض الأصناف غير النشطة."
+     },
+     "intent": "list",
+     "keywords": [
+      "disabled"
+     ]
+    },
+    {
+     "id": "items_active",
+     "category": "items",
+     "question": {
+      "en": "Show active items.",
+      "fr": "Afficher les articles actifs.",
+      "ar": "اعرض الأصناف النشطة."
+     },
+     "intent": "list",
+     "keywords": [
+      "enabled"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "orders",
+   "icon": "clipboard",
+   "enabled": true,
+   "title": {
+    "en": "Orders",
+    "fr": "Commandes",
+    "ar": "الطلبات"
+   },
+   "description": {
+    "en": "Sales and purchase orders: search, status and contents.",
+    "fr": "Commandes clients et fournisseurs : recherche, statut et contenu.",
+    "ar": "أوامر البيع والشراء: البحث والحالة والمحتوى."
+   },
+   "keywords": [
+    "order",
+    "commande",
+    "طلب",
+    "أمر"
+   ],
+   "doctype": "Sales Order",
+   "questions": [
+    {
+     "id": "order_find",
+     "category": "orders",
+     "question": {
+      "en": "Find order SO-00001.",
+      "fr": "Trouver la commande SO-00001.",
+      "ar": "ابحث عن الطلب SO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "SO",
+      "PO"
+     ]
+    },
+    {
+     "id": "order_info",
+     "category": "orders",
+     "question": {
+      "en": "Show information about SO-00001.",
+      "fr": "Afficher les informations de SO-00001.",
+      "ar": "اعرض معلومات SO-00001."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "details"
+     ]
+    },
+    {
+     "id": "orders_customer",
+     "category": "orders",
+     "question": {
+      "en": "Find all orders for customer ABC.",
+      "fr": "Trouver toutes les commandes du client ABC.",
+      "ar": "ابحث عن جميع طلبات العميل ABC."
+     },
+     "intent": "list",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "orders_pending",
+     "category": "orders",
+     "question": {
+      "en": "Show pending orders.",
+      "fr": "Afficher les commandes en attente.",
+      "ar": "اعرض الطلبات المعلقة."
+     },
+     "intent": "list",
+     "keywords": [
+      "pending",
+      "to",
+      "deliver",
+      "to",
+      "bill"
+     ]
+    },
+    {
+     "id": "orders_submitted",
+     "category": "orders",
+     "question": {
+      "en": "Show submitted orders.",
+      "fr": "Afficher les commandes validées.",
+      "ar": "اعرض الطلبات المعتمدة."
+     },
+     "intent": "list",
+     "keywords": [
+      "submitted"
+     ]
+    },
+    {
+     "id": "orders_cancelled",
+     "category": "orders",
+     "question": {
+      "en": "Show cancelled orders.",
+      "fr": "Afficher les commandes annulées.",
+      "ar": "اعرض الطلبات الملغاة."
+     },
+     "intent": "list",
+     "keywords": [
+      "cancelled"
+     ]
+    },
+    {
+     "id": "orders_between",
+     "category": "orders",
+     "question": {
+      "en": "Show orders between two dates.",
+      "fr": "Afficher les commandes entre deux dates.",
+      "ar": "اعرض الطلبات بين تاريخين."
+     },
+     "intent": "list",
+     "keywords": [
+      "date",
+      "range"
+     ]
+    },
+    {
+     "id": "orders_latest",
+     "category": "orders",
+     "question": {
+      "en": "Show the latest orders.",
+      "fr": "Afficher les dernières commandes.",
+      "ar": "اعرض أحدث الطلبات."
+     },
+     "intent": "list",
+     "keywords": [
+      "recent"
+     ]
+    },
+    {
+     "id": "orders_item",
+     "category": "orders",
+     "question": {
+      "en": "Show orders containing ITEM-001.",
+      "fr": "Afficher les commandes contenant ITEM-001.",
+      "ar": "اعرض الطلبات التي تحتوي على ITEM-001."
+     },
+     "intent": "list",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Sales Order Item"
+    },
+    {
+     "id": "order_items",
+     "category": "orders",
+     "question": {
+      "en": "Show order items.",
+      "fr": "Afficher les articles de la commande.",
+      "ar": "اعرض أصناف الطلب."
+     },
+     "intent": "list",
+     "keywords": [
+      "items"
+     ],
+     "doctype": "Sales Order Item"
+    },
+    {
+     "id": "order_status",
+     "category": "orders",
+     "question": {
+      "en": "Show order status.",
+      "fr": "Afficher le statut de la commande.",
+      "ar": "اعرض حالة الطلب."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "status"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "accounting",
+   "icon": "calculator",
+   "enabled": true,
+   "title": {
+    "en": "Accounting",
+    "fr": "Comptabilité",
+    "ar": "المحاسبة"
+   },
+   "description": {
+    "en": "Revenue, expenses, receivables, payables, invoices and payments.",
+    "fr": "Revenus, dépenses, créances, dettes, factures et paiements.",
+    "ar": "الإيرادات والمصروفات والذمم المدينة والدائنة والفواتير والمدفوعات."
+   },
+   "keywords": [
+    "accounting",
+    "finance",
+    "invoice",
+    "payment",
+    "comptabilité",
+    "facture",
+    "paiement",
+    "محاسبة",
+    "فاتورة",
+    "دفعة"
+   ],
+   "doctype": "Sales Invoice",
+   "questions": [
+    {
+     "id": "acc_revenue_total",
+     "category": "accounting",
+     "question": {
+      "en": "What is the total revenue?",
+      "fr": "Quel est le chiffre d'affaires total ?",
+      "ar": "ما هو إجمالي الإيرادات؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "revenue"
+     ]
+    },
+    {
+     "id": "acc_expense_total",
+     "category": "accounting",
+     "question": {
+      "en": "What is the total expense?",
+      "fr": "Quel est le total des dépenses ?",
+      "ar": "ما هو إجمالي المصروفات؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "expense"
+     ],
+     "doctype": "GL Entry"
+    },
+    {
+     "id": "acc_revenue_month",
+     "category": "accounting",
+     "question": {
+      "en": "Show revenue by month.",
+      "fr": "Afficher le chiffre d'affaires par mois.",
+      "ar": "اعرض الإيرادات حسب الشهر."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "monthly"
+     ],
+     "enabled": false
+    },
+    {
+     "id": "acc_expense_month",
+     "category": "accounting",
+     "question": {
+      "en": "Show expenses by month.",
+      "fr": "Afficher les dépenses par mois.",
+      "ar": "اعرض المصروفات حسب الشهر."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "monthly"
+     ],
+     "doctype": "GL Entry",
+     "enabled": false
+    },
+    {
+     "id": "acc_receivable",
+     "category": "accounting",
+     "question": {
+      "en": "Show accounts receivable.",
+      "fr": "Afficher les créances clients.",
+      "ar": "اعرض الذمم المدينة."
+     },
+     "intent": "list",
+     "keywords": [
+      "receivable"
+     ]
+    },
+    {
+     "id": "acc_payable",
+     "category": "accounting",
+     "question": {
+      "en": "Show accounts payable.",
+      "fr": "Afficher les dettes fournisseurs.",
+      "ar": "اعرض الذمم الدائنة."
+     },
+     "intent": "list",
+     "keywords": [
+      "payable"
+     ],
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "acc_unpaid",
+     "category": "accounting",
+     "question": {
+      "en": "Show unpaid invoices.",
+      "fr": "Afficher les factures impayées.",
+      "ar": "اعرض الفواتير غير المدفوعة."
+     },
+     "intent": "list",
+     "keywords": [
+      "unpaid"
+     ]
+    },
+    {
+     "id": "acc_paid",
+     "category": "accounting",
+     "question": {
+      "en": "Show paid invoices.",
+      "fr": "Afficher les factures payées.",
+      "ar": "اعرض الفواتير المدفوعة."
+     },
+     "intent": "list",
+     "keywords": [
+      "paid"
+     ]
+    },
+    {
+     "id": "acc_outstanding",
+     "category": "accounting",
+     "question": {
+      "en": "Show outstanding invoices.",
+      "fr": "Afficher les factures en cours de règlement.",
+      "ar": "اعرض الفواتير المستحقة."
+     },
+     "intent": "list",
+     "keywords": [
+      "outstanding"
+     ]
+    },
+    {
+     "id": "acc_payment_entries",
+     "category": "accounting",
+     "question": {
+      "en": "Show payment entries.",
+      "fr": "Afficher les écritures de paiement.",
+      "ar": "اعرض قيود الدفع."
+     },
+     "intent": "list",
+     "keywords": [
+      "payment"
+     ],
+     "doctype": "Payment Entry"
+    },
+    {
+     "id": "acc_invoice_find",
+     "category": "accounting",
+     "question": {
+      "en": "Find invoice INV-00001.",
+      "fr": "Trouver la facture INV-00001.",
+      "ar": "ابحث عن الفاتورة INV-00001."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "acc_invoice_info",
+     "category": "accounting",
+     "question": {
+      "en": "Show information about invoice INV-00001.",
+      "fr": "Afficher les informations de la facture INV-00001.",
+      "ar": "اعرض معلومات الفاتورة INV-00001."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "acc_entries_doc",
+     "category": "accounting",
+     "question": {
+      "en": "Show accounting entries for document X.",
+      "fr": "Afficher les écritures comptables du document X.",
+      "ar": "اعرض القيود المحاسبية للمستند X."
+     },
+     "intent": "list",
+     "keywords": [
+      "ledger"
+     ],
+     "doctype": "GL Entry"
+    },
+    {
+     "id": "acc_gl",
+     "category": "accounting",
+     "question": {
+      "en": "Show general ledger information.",
+      "fr": "Afficher les informations du grand livre.",
+      "ar": "اعرض معلومات دفتر الأستاذ العام."
+     },
+     "intent": "list",
+     "keywords": [
+      "general",
+      "ledger"
+     ],
+     "doctype": "GL Entry"
+    }
+   ]
+  },
+  {
+   "id": "hr",
+   "icon": "briefcase",
+   "enabled": true,
+   "title": {
+    "en": "HR / Employees",
+    "fr": "RH / Employés",
+    "ar": "الموارد البشرية / الموظفون"
+   },
+   "description": {
+    "en": "Employees, attendance and leave. Always subject to HR permissions.",
+    "fr": "Employés, présence et congés. Toujours soumis aux permissions RH.",
+    "ar": "الموظفون والحضور والإجازات. تخضع دائماً لصلاحيات الموارد البشرية."
+   },
+   "keywords": [
+    "hr",
+    "employee",
+    "staff",
+    "rh",
+    "employé",
+    "موظف",
+    "موارد بشرية"
+   ],
+   "doctype": "Employee",
+   "questions": [
+    {
+     "id": "emp_find",
+     "category": "hr",
+     "question": {
+      "en": "Find employee Ahmed.",
+      "fr": "Trouver l'employé Ahmed.",
+      "ar": "ابحث عن الموظف Ahmed."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "emp_search_name",
+     "category": "hr",
+     "question": {
+      "en": "Search employee by name.",
+      "fr": "Rechercher un employé par nom.",
+      "ar": "ابحث عن موظف بالاسم."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "emp_info",
+     "category": "hr",
+     "question": {
+      "en": "Show employee information.",
+      "fr": "Afficher les informations de l'employé.",
+      "ar": "اعرض معلومات الموظف."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "emp_all",
+     "category": "hr",
+     "question": {
+      "en": "Show all employees.",
+      "fr": "Afficher tous les employés.",
+      "ar": "اعرض جميع الموظفين."
+     },
+     "intent": "list"
+    },
+    {
+     "id": "emp_department",
+     "category": "hr",
+     "question": {
+      "en": "Show employees by department.",
+      "fr": "Afficher les employés par département.",
+      "ar": "اعرض الموظفين حسب القسم."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "department"
+     ]
+    },
+    {
+     "id": "emp_designation",
+     "category": "hr",
+     "question": {
+      "en": "Show employees by designation.",
+      "fr": "Afficher les employés par poste.",
+      "ar": "اعرض الموظفين حسب المسمى الوظيفي."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "designation"
+     ]
+    },
+    {
+     "id": "emp_branch",
+     "category": "hr",
+     "question": {
+      "en": "Show employees by branch.",
+      "fr": "Afficher les employés par succursale.",
+      "ar": "اعرض الموظفين حسب الفرع."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "branch"
+     ]
+    },
+    {
+     "id": "emp_by_id",
+     "category": "hr",
+     "question": {
+      "en": "Find employee by ID.",
+      "fr": "Trouver un employé par son identifiant.",
+      "ar": "ابحث عن موظف بالرقم التعريفي."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "id"
+     ]
+    },
+    {
+     "id": "emp_status",
+     "category": "hr",
+     "question": {
+      "en": "Show employee status.",
+      "fr": "Afficher le statut de l'employé.",
+      "ar": "اعرض حالة الموظف."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "status"
+     ]
+    },
+    {
+     "id": "emp_active",
+     "category": "hr",
+     "question": {
+      "en": "Show active employees.",
+      "fr": "Afficher les employés actifs.",
+      "ar": "اعرض الموظفين النشطين."
+     },
+     "intent": "list",
+     "keywords": [
+      "active"
+     ]
+    },
+    {
+     "id": "emp_inactive",
+     "category": "hr",
+     "question": {
+      "en": "Show inactive employees.",
+      "fr": "Afficher les employés inactifs.",
+      "ar": "اعرض الموظفين غير النشطين."
+     },
+     "intent": "list",
+     "keywords": [
+      "inactive",
+      "left"
+     ]
+    },
+    {
+     "id": "emp_attendance",
+     "category": "hr",
+     "question": {
+      "en": "Show employee attendance.",
+      "fr": "Afficher la présence des employés.",
+      "ar": "اعرض حضور الموظفين."
+     },
+     "intent": "list",
+     "keywords": [
+      "attendance"
+     ],
+     "doctype": "Attendance"
+    },
+    {
+     "id": "emp_attendance_name",
+     "category": "hr",
+     "question": {
+      "en": "Show attendance for employee Ahmed.",
+      "fr": "Afficher la présence de l'employé Ahmed.",
+      "ar": "اعرض حضور الموظف Ahmed."
+     },
+     "intent": "list",
+     "keywords": [
+      "attendance"
+     ],
+     "doctype": "Attendance"
+    },
+    {
+     "id": "emp_leave",
+     "category": "hr",
+     "question": {
+      "en": "Show leave information.",
+      "fr": "Afficher les informations de congés.",
+      "ar": "اعرض معلومات الإجازات."
+     },
+     "intent": "list",
+     "keywords": [
+      "leave"
+     ],
+     "doctype": "Leave Application"
+    },
+    {
+     "id": "emp_leave_balance",
+     "category": "hr",
+     "question": {
+      "en": "Show employee leave balance.",
+      "fr": "Afficher le solde de congés de l'employé.",
+      "ar": "اعرض رصيد إجازات الموظف."
+     },
+     "intent": "list",
+     "keywords": [
+      "leave",
+      "balance"
+     ],
+     "doctype": "Leave Allocation"
+    },
+    {
+     "id": "emp_salary",
+     "category": "hr",
+     "question": {
+      "en": "Show salary information if the current user has permission.",
+      "fr": "Afficher les informations de salaire si l'utilisateur en a l'autorisation.",
+      "ar": "اعرض معلومات الراتب إذا كان لدى المستخدم الصلاحية."
+     },
+     "intent": "list",
+     "keywords": [
+      "salary",
+      "payroll"
+     ],
+     "doctype": "Salary Slip"
+    }
+   ]
+  },
+  {
+   "id": "users",
+   "icon": "user",
+   "enabled": true,
+   "title": {
+    "en": "Users",
+    "fr": "Utilisateurs",
+    "ar": "المستخدمون"
+   },
+   "description": {
+    "en": "User accounts and roles. Credentials are never shown.",
+    "fr": "Comptes utilisateurs et rôles. Les identifiants ne sont jamais affichés.",
+    "ar": "حسابات المستخدمين والأدوار. لا تُعرض بيانات الاعتماد أبداً."
+   },
+   "keywords": [
+    "user",
+    "role",
+    "utilisateur",
+    "rôle",
+    "مستخدم",
+    "دور"
+   ],
+   "doctype": "User",
+   "questions": [
+    {
+     "id": "user_find",
+     "category": "users",
+     "question": {
+      "en": "Find user admin@example.com.",
+      "fr": "Trouver l'utilisateur admin@example.com.",
+      "ar": "ابحث عن المستخدم admin@example.com."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "user_search_email",
+     "category": "users",
+     "question": {
+      "en": "Search user by email.",
+      "fr": "Rechercher un utilisateur par e-mail.",
+      "ar": "ابحث عن مستخدم بالبريد الإلكتروني."
+     },
+     "intent": "lookup",
+     "keywords": [
+      "email"
+     ]
+    },
+    {
+     "id": "user_info",
+     "category": "users",
+     "question": {
+      "en": "Show user information.",
+      "fr": "Afficher les informations de l'utilisateur.",
+      "ar": "اعرض معلومات المستخدم."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "user_active",
+     "category": "users",
+     "question": {
+      "en": "Show active users.",
+      "fr": "Afficher les utilisateurs actifs.",
+      "ar": "اعرض المستخدمين النشطين."
+     },
+     "intent": "list"
+    },
+    {
+     "id": "user_disabled",
+     "category": "users",
+     "question": {
+      "en": "Show disabled users.",
+      "fr": "Afficher les utilisateurs désactivés.",
+      "ar": "اعرض المستخدمين المعطّلين."
+     },
+     "intent": "list"
+    },
+    {
+     "id": "user_by_role",
+     "category": "users",
+     "question": {
+      "en": "Show users by role.",
+      "fr": "Afficher les utilisateurs par rôle.",
+      "ar": "اعرض المستخدمين حسب الدور."
+     },
+     "intent": "list",
+     "doctype": "Has Role"
+    },
+    {
+     "id": "user_role_assigned",
+     "category": "users",
+     "question": {
+      "en": "Show users assigned to a role.",
+      "fr": "Afficher les utilisateurs assignés à un rôle.",
+      "ar": "اعرض المستخدمين المعيّنين لدور معين."
+     },
+     "intent": "list",
+     "doctype": "Has Role"
+    }
+   ]
+  },
+  {
+   "id": "projects",
+   "icon": "folder",
+   "enabled": true,
+   "title": {
+    "en": "Projects",
+    "fr": "Projets",
+    "ar": "المشاريع"
+   },
+   "description": {
+    "en": "Projects, tasks, costs and revenue.",
+    "fr": "Projets, tâches, coûts et revenus.",
+    "ar": "المشاريع والمهام والتكاليف والإيرادات."
+   },
+   "keywords": [
+    "project",
+    "task",
+    "projet",
+    "tâche",
+    "مشروع",
+    "مهمة"
+   ],
+   "doctype": "Project",
+   "questions": [
+    {
+     "id": "project_all",
+     "category": "projects",
+     "question": {
+      "en": "Show all projects.",
+      "fr": "Afficher tous les projets.",
+      "ar": "اعرض جميع المشاريع."
+     },
+     "intent": "list"
+    },
+    {
+     "id": "project_find",
+     "category": "projects",
+     "question": {
+      "en": "Find project PROJECT-001.",
+      "fr": "Trouver le projet PROJECT-001.",
+      "ar": "ابحث عن المشروع PROJECT-001."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "project_info",
+     "category": "projects",
+     "question": {
+      "en": "Show project information.",
+      "fr": "Afficher les informations du projet.",
+      "ar": "اعرض معلومات المشروع."
+     },
+     "intent": "lookup"
+    },
+    {
+     "id": "project_customer",
+     "category": "projects",
+     "question": {
+      "en": "Show projects by customer.",
+      "fr": "Afficher les projets par client.",
+      "ar": "اعرض المشاريع حسب العميل."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "project_status",
+     "category": "projects",
+     "question": {
+      "en": "Show project status.",
+      "fr": "Afficher le statut des projets.",
+      "ar": "اعرض حالة المشاريع."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "status"
+     ]
+    },
+    {
+     "id": "project_tasks",
+     "category": "projects",
+     "question": {
+      "en": "Show project tasks.",
+      "fr": "Afficher les tâches du projet.",
+      "ar": "اعرض مهام المشروع."
+     },
+     "intent": "list",
+     "keywords": [
+      "tasks"
+     ],
+     "doctype": "Task"
+    },
+    {
+     "id": "task_overdue",
+     "category": "projects",
+     "question": {
+      "en": "Show overdue tasks.",
+      "fr": "Afficher les tâches en retard.",
+      "ar": "اعرض المهام المتأخرة."
+     },
+     "intent": "list",
+     "keywords": [
+      "overdue",
+      "late"
+     ],
+     "doctype": "Task"
+    },
+    {
+     "id": "task_completed",
+     "category": "projects",
+     "question": {
+      "en": "Show completed tasks.",
+      "fr": "Afficher les tâches terminées.",
+      "ar": "اعرض المهام المكتملة."
+     },
+     "intent": "list",
+     "keywords": [
+      "completed",
+      "done"
+     ],
+     "doctype": "Task"
+    },
+    {
+     "id": "project_costs",
+     "category": "projects",
+     "question": {
+      "en": "Show project costs.",
+      "fr": "Afficher les coûts des projets.",
+      "ar": "اعرض تكاليف المشاريع."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "cost",
+      "expense"
+     ]
+    },
+    {
+     "id": "project_revenue",
+     "category": "projects",
+     "question": {
+      "en": "Show project revenue.",
+      "fr": "Afficher les revenus des projets.",
+      "ar": "اعرض إيرادات المشاريع."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "revenue"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "reports",
+   "icon": "bar-chart",
+   "enabled": false,
+   "title": {
+    "en": "Reports",
+    "fr": "Rapports",
+    "ar": "التقارير"
+   },
+   "description": {
+    "en": "Find and run ERPNext reports.",
+    "fr": "Trouver et exécuter les rapports ERPNext.",
+    "ar": "ابحث عن تقارير ERPNext وشغّلها."
+   },
+   "keywords": [
+    "report",
+    "rapport",
+    "تقرير"
+   ],
+   "questions": [
+    {
+     "id": "report_available",
+     "category": "reports",
+     "question": {
+      "en": "Show available reports.",
+      "fr": "Afficher les rapports disponibles.",
+      "ar": "اعرض التقارير المتاحة."
+     },
+     "intent": "report"
+    },
+    {
+     "id": "report_sales_want",
+     "category": "reports",
+     "question": {
+      "en": "I want a sales report.",
+      "fr": "Je veux un rapport de ventes.",
+      "ar": "أريد تقرير مبيعات."
+     },
+     "intent": "report",
+     "keywords": [
+      "sales"
+     ]
+    },
+    {
+     "id": "report_sales",
+     "category": "reports",
+     "question": {
+      "en": "Show sales reports.",
+      "fr": "Afficher les rapports de ventes.",
+      "ar": "اعرض تقارير المبيعات."
+     },
+     "intent": "report",
+     "keywords": [
+      "sales"
+     ]
+    },
+    {
+     "id": "report_purchase",
+     "category": "reports",
+     "question": {
+      "en": "Show purchase reports.",
+      "fr": "Afficher les rapports d'achats.",
+      "ar": "اعرض تقارير المشتريات."
+     },
+     "intent": "report",
+     "keywords": [
+      "purchase"
+     ]
+    },
+    {
+     "id": "report_stock",
+     "category": "reports",
+     "question": {
+      "en": "Show stock reports.",
+      "fr": "Afficher les rapports de stock.",
+      "ar": "اعرض تقارير المخزون."
+     },
+     "intent": "report",
+     "keywords": [
+      "stock"
+     ]
+    },
+    {
+     "id": "report_customer",
+     "category": "reports",
+     "question": {
+      "en": "Show customer reports.",
+      "fr": "Afficher les rapports clients.",
+      "ar": "اعرض تقارير العملاء."
+     },
+     "intent": "report",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "report_supplier",
+     "category": "reports",
+     "question": {
+      "en": "Show supplier reports.",
+      "fr": "Afficher les rapports fournisseurs.",
+      "ar": "اعرض تقارير الموردين."
+     },
+     "intent": "report",
+     "keywords": [
+      "supplier"
+     ]
+    },
+    {
+     "id": "report_accounting",
+     "category": "reports",
+     "question": {
+      "en": "Show accounting reports.",
+      "fr": "Afficher les rapports comptables.",
+      "ar": "اعرض التقارير المحاسبية."
+     },
+     "intent": "report",
+     "keywords": [
+      "accounting"
+     ]
+    },
+    {
+     "id": "report_hr",
+     "category": "reports",
+     "question": {
+      "en": "Show HR reports.",
+      "fr": "Afficher les rapports RH.",
+      "ar": "اعرض تقارير الموارد البشرية."
+     },
+     "intent": "report",
+     "keywords": [
+      "hr"
+     ]
+    },
+    {
+     "id": "report_employee",
+     "category": "reports",
+     "question": {
+      "en": "Show employee reports.",
+      "fr": "Afficher les rapports des employés.",
+      "ar": "اعرض تقارير الموظفين."
+     },
+     "intent": "report",
+     "keywords": [
+      "employee"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "filters",
+   "icon": "filter",
+   "enabled": true,
+   "title": {
+    "en": "Dynamic filters",
+    "fr": "Filtres dynamiques",
+    "ar": "الفلاتر الديناميكية"
+   },
+   "description": {
+    "en": "Use dates and names in plain language: today, this month, last year, a customer, an item...",
+    "fr": "Utilisez des dates et des noms en langage naturel : aujourd'hui, ce mois, l'an dernier, un client, un article...",
+    "ar": "استخدم التواريخ والأسماء بلغة عادية: اليوم، هذا الشهر، السنة الماضية، عميل، صنف..."
+   },
+   "keywords": [
+    "filter",
+    "date",
+    "period",
+    "today",
+    "yesterday",
+    "week",
+    "month",
+    "quarter",
+    "year",
+    "filtre",
+    "période",
+    "فلتر",
+    "تاريخ",
+    "فترة"
+   ],
+   "questions": [
+    {
+     "id": "filter_jan",
+     "category": "filters",
+     "question": {
+      "en": "Show sales for January 2026.",
+      "fr": "Afficher les ventes de janvier 2026.",
+      "ar": "اعرض مبيعات يناير 2026."
+     },
+     "intent": "filter",
+     "keywords": [
+      "january",
+      "month"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "filter_range",
+     "category": "filters",
+     "question": {
+      "en": "Show sales between January and March 2026.",
+      "fr": "Afficher les ventes entre janvier et mars 2026.",
+      "ar": "اعرض المبيعات بين يناير ومارس 2026."
+     },
+     "intent": "filter",
+     "keywords": [
+      "between",
+      "range",
+      "custom"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "filter_customer",
+     "category": "filters",
+     "question": {
+      "en": "Show sales for customer ABC.",
+      "fr": "Afficher les ventes du client ABC.",
+      "ar": "اعرض مبيعات العميل ABC."
+     },
+     "intent": "filter",
+     "keywords": [
+      "customer"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "filter_item",
+     "category": "filters",
+     "question": {
+      "en": "Show sales for item ITEM-001.",
+      "fr": "Afficher les ventes de l'article ITEM-001.",
+      "ar": "اعرض مبيعات الصنف ITEM-001."
+     },
+     "intent": "filter",
+     "keywords": [
+      "item"
+     ],
+     "doctype": "Sales Invoice Item",
+     "enabled": false
+    },
+    {
+     "id": "filter_supplier",
+     "category": "filters",
+     "question": {
+      "en": "Show purchases for supplier ABC.",
+      "fr": "Afficher les achats du fournisseur ABC.",
+      "ar": "اعرض مشتريات المورد ABC."
+     },
+     "intent": "filter",
+     "keywords": [
+      "supplier"
+     ],
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "filter_warehouse",
+     "category": "filters",
+     "question": {
+      "en": "Show stock in Tunis warehouse.",
+      "fr": "Afficher le stock de l'entrepôt de Tunis.",
+      "ar": "اعرض المخزون في مستودع تونس."
+     },
+     "intent": "filter",
+     "keywords": [
+      "warehouse"
+     ],
+     "doctype": "Bin"
+    },
+    {
+     "id": "filter_department",
+     "category": "filters",
+     "question": {
+      "en": "Show employees in the IT department.",
+      "fr": "Afficher les employés du département informatique.",
+      "ar": "اعرض الموظفين في قسم تقنية المعلومات."
+     },
+     "intent": "filter",
+     "keywords": [
+      "department"
+     ],
+     "doctype": "Employee"
+    },
+    {
+     "id": "filter_orders_month",
+     "category": "filters",
+     "question": {
+      "en": "Show orders created this month.",
+      "fr": "Afficher les commandes créées ce mois-ci.",
+      "ar": "اعرض الطلبات المنشأة هذا الشهر."
+     },
+     "intent": "filter",
+     "keywords": [
+      "this",
+      "month"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "filter_invoices_last_month",
+     "category": "filters",
+     "question": {
+      "en": "Show invoices from last month.",
+      "fr": "Afficher les factures du mois dernier.",
+      "ar": "اعرض فواتير الشهر الماضي."
+     },
+     "intent": "filter",
+     "keywords": [
+      "last",
+      "month"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_today",
+     "category": "filters",
+     "question": {
+      "en": "Show invoices from today.",
+      "fr": "Afficher les factures d'aujourd'hui.",
+      "ar": "اعرض فواتير اليوم."
+     },
+     "intent": "filter",
+     "keywords": [
+      "today"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_yesterday",
+     "category": "filters",
+     "question": {
+      "en": "Show invoices from yesterday.",
+      "fr": "Afficher les factures d'hier.",
+      "ar": "اعرض فواتير الأمس."
+     },
+     "intent": "filter",
+     "keywords": [
+      "yesterday"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_week",
+     "category": "filters",
+     "question": {
+      "en": "Show sales this week.",
+      "fr": "Afficher les ventes de cette semaine.",
+      "ar": "اعرض مبيعات هذا الأسبوع."
+     },
+     "intent": "filter",
+     "keywords": [
+      "this",
+      "week"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_last_week",
+     "category": "filters",
+     "question": {
+      "en": "Show sales last week.",
+      "fr": "Afficher les ventes de la semaine dernière.",
+      "ar": "اعرض مبيعات الأسبوع الماضي."
+     },
+     "intent": "filter",
+     "keywords": [
+      "last",
+      "week"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_quarter",
+     "category": "filters",
+     "question": {
+      "en": "Show sales this quarter.",
+      "fr": "Afficher les ventes de ce trimestre.",
+      "ar": "اعرض مبيعات هذا الربع."
+     },
+     "intent": "filter",
+     "keywords": [
+      "this",
+      "quarter"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_year",
+     "category": "filters",
+     "question": {
+      "en": "Show sales this year.",
+      "fr": "Afficher les ventes de cette année.",
+      "ar": "اعرض مبيعات هذه السنة."
+     },
+     "intent": "filter",
+     "keywords": [
+      "this",
+      "year"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "period_last_year",
+     "category": "filters",
+     "question": {
+      "en": "Show sales last year.",
+      "fr": "Afficher les ventes de l'année dernière.",
+      "ar": "اعرض مبيعات السنة الماضية."
+     },
+     "intent": "filter",
+     "keywords": [
+      "last",
+      "year"
+     ],
+     "doctype": "Sales Invoice"
+    }
+   ]
+  },
+  {
+   "id": "calculations",
+   "icon": "percent",
+   "enabled": true,
+   "title": {
+    "en": "Calculations",
+    "fr": "Calculs",
+    "ar": "العمليات الحسابية"
+   },
+   "description": {
+    "en": "Totals, averages, counts, groupings and comparisons (SUM, COUNT, AVG, MIN, MAX, GROUP BY, COMPARE).",
+    "fr": "Totaux, moyennes, comptages, regroupements et comparaisons (SUM, COUNT, AVG, MIN, MAX, GROUP BY, COMPARE).",
+    "ar": "المجاميع والمتوسطات والعدّ والتجميع والمقارنات (SUM, COUNT, AVG, MIN, MAX, GROUP BY, COMPARE)."
+   },
+   "keywords": [
+    "calculate",
+    "total",
+    "sum",
+    "average",
+    "count",
+    "min",
+    "max",
+    "group by",
+    "compare",
+    "percentage",
+    "growth",
+    "difference",
+    "calcul",
+    "moyenne",
+    "somme",
+    "حساب",
+    "مجموع",
+    "متوسط",
+    "عدد"
+   ],
+   "questions": [
+    {
+     "id": "calc_total",
+     "category": "calculations",
+     "question": {
+      "en": "What is the total?",
+      "fr": "Quel est le total ?",
+      "ar": "ما هو الإجمالي؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "sum",
+      "follow-up"
+     ]
+    },
+    {
+     "id": "calc_average",
+     "category": "calculations",
+     "question": {
+      "en": "What is the average?",
+      "fr": "Quelle est la moyenne ?",
+      "ar": "ما هو المتوسط؟"
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "avg",
+      "follow-up"
+     ]
+    },
+    {
+     "id": "calc_count_customers",
+     "category": "calculations",
+     "question": {
+      "en": "Count all customers.",
+      "fr": "Compter tous les clients.",
+      "ar": "احسب عدد جميع العملاء."
+     },
+     "intent": "count",
+     "keywords": [
+      "count"
+     ],
+     "doctype": "Customer"
+    },
+    {
+     "id": "calc_count_orders",
+     "category": "calculations",
+     "question": {
+      "en": "Count all orders.",
+      "fr": "Compter toutes les commandes.",
+      "ar": "احسب عدد جميع الطلبات."
+     },
+     "intent": "count",
+     "keywords": [
+      "count"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "calc_count_invoices",
+     "category": "calculations",
+     "question": {
+      "en": "Count all invoices.",
+      "fr": "Compter toutes les factures.",
+      "ar": "احسب عدد جميع الفواتير."
+     },
+     "intent": "count",
+     "keywords": [
+      "count"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "calc_total_sales",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate total sales.",
+      "fr": "Calculer le total des ventes.",
+      "ar": "احسب إجمالي المبيعات."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "sum"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "calc_total_purchases",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate total purchases.",
+      "fr": "Calculer le total des achats.",
+      "ar": "احسب إجمالي المشتريات."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "sum"
+     ],
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "calc_avg_order",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate average order value.",
+      "fr": "Calculer la valeur moyenne des commandes.",
+      "ar": "احسب متوسط قيمة الطلب."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "avg",
+      "average"
+     ],
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "calc_sales_customer",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate sales by customer.",
+      "fr": "Calculer les ventes par client.",
+      "ar": "احسب المبيعات حسب العميل."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "group",
+      "by"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "calc_sales_item",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate sales by item.",
+      "fr": "Calculer les ventes par article.",
+      "ar": "احسب المبيعات حسب الصنف."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "group",
+      "by"
+     ],
+     "doctype": "Sales Invoice Item",
+     "enabled": false
+    },
+    {
+     "id": "calc_purchases_supplier",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate purchases by supplier.",
+      "fr": "Calculer les achats par fournisseur.",
+      "ar": "احسب المشتريات حسب المورد."
+     },
+     "intent": "aggregation",
+     "keywords": [
+      "group",
+      "by"
+     ],
+     "doctype": "Purchase Invoice"
+    },
+    {
+     "id": "calc_compare",
+     "category": "calculations",
+     "question": {
+      "en": "Compare sales between two periods.",
+      "fr": "Comparer les ventes entre deux périodes.",
+      "ar": "قارن المبيعات بين فترتين."
+     },
+     "intent": "comparison",
+     "keywords": [
+      "compare"
+     ],
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "calc_growth",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate monthly growth.",
+      "fr": "Calculer la croissance mensuelle.",
+      "ar": "احسب النمو الشهري."
+     },
+     "intent": "growth",
+     "keywords": [
+      "growth",
+      "percentage"
+     ],
+     "doctype": "Sales Invoice",
+     "enabled": false
+    },
+    {
+     "id": "calc_difference",
+     "category": "calculations",
+     "question": {
+      "en": "Calculate the difference between two periods.",
+      "fr": "Calculer la différence entre deux périodes.",
+      "ar": "احسب الفرق بين فترتين."
+     },
+     "intent": "difference",
+     "keywords": [
+      "difference"
+     ],
+     "doctype": "Sales Invoice",
+     "enabled": false
+    }
+   ]
+  },
+  {
+   "id": "document_search",
+   "icon": "search",
+   "enabled": true,
+   "title": {
+    "en": "Document Search",
+    "fr": "Recherche de documents",
+    "ar": "البحث عن المستندات"
+   },
+   "description": {
+    "en": "Look up a document by its ID or name.",
+    "fr": "Rechercher un document par son identifiant ou son nom.",
+    "ar": "ابحث عن مستند بواسطة رقمه أو اسمه."
+   },
+   "keywords": [
+    "find",
+    "search",
+    "document",
+    "name",
+    "id",
+    "trouver",
+    "rechercher",
+    "document",
+    "ابحث",
+    "مستند"
+   ],
+   "questions": [
+    {
+     "id": "doc_find",
+     "category": "document_search",
+     "question": {
+      "en": "Find document SO-00001.",
+      "fr": "Trouver le document SO-00001.",
+      "ar": "ابحث عن المستند SO-00001."
+     },
+     "intent": "lookup",
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "doc_so",
+     "category": "document_search",
+     "question": {
+      "en": "Search Sales Order SO-00001.",
+      "fr": "Rechercher la commande client SO-00001.",
+      "ar": "ابحث عن أمر البيع SO-00001."
+     },
+     "intent": "lookup",
+     "doctype": "Sales Order"
+    },
+    {
+     "id": "doc_invoice",
+     "category": "document_search",
+     "question": {
+      "en": "Find invoice INV-00001.",
+      "fr": "Trouver la facture INV-00001.",
+      "ar": "ابحث عن الفاتورة INV-00001."
+     },
+     "intent": "lookup",
+     "doctype": "Sales Invoice"
+    },
+    {
+     "id": "doc_po",
+     "category": "document_search",
+     "question": {
+      "en": "Find purchase order PO-00001.",
+      "fr": "Trouver la commande fournisseur PO-00001.",
+      "ar": "ابحث عن أمر الشراء PO-00001."
+     },
+     "intent": "lookup",
+     "doctype": "Purchase Order"
+    },
+    {
+     "id": "doc_employee",
+     "category": "document_search",
+     "question": {
+      "en": "Find employee Ahmed.",
+      "fr": "Trouver l'employé Ahmed.",
+      "ar": "ابحث عن الموظف Ahmed."
+     },
+     "intent": "lookup",
+     "doctype": "Employee"
+    },
+    {
+     "id": "doc_customer",
+     "category": "document_search",
+     "question": {
+      "en": "Find customer ABC.",
+      "fr": "Trouver le client ABC.",
+      "ar": "ابحث عن العميل ABC."
+     },
+     "intent": "lookup",
+     "doctype": "Customer"
+    },
+    {
+     "id": "doc_supplier",
+     "category": "document_search",
+     "question": {
+      "en": "Find supplier XYZ.",
+      "fr": "Trouver le fournisseur XYZ.",
+      "ar": "ابحث عن المورد XYZ."
+     },
+     "intent": "lookup",
+     "doctype": "Supplier"
+    },
+    {
+     "id": "doc_item",
+     "category": "document_search",
+     "question": {
+      "en": "Find item ITEM-001.",
+      "fr": "Trouver l'article ITEM-001.",
+      "ar": "ابحث عن الصنف ITEM-001."
+     },
+     "intent": "lookup",
+     "doctype": "Item"
+    },
+    {
+     "id": "doc_warehouse",
+     "category": "document_search",
+     "question": {
+      "en": "Search warehouse Tunis.",
+      "fr": "Rechercher l'entrepôt Tunis.",
+      "ar": "ابحث عن مستودع تونس."
+     },
+     "intent": "lookup",
+     "doctype": "Warehouse"
+    }
+   ]
+  },
+  {
+   "id": "doctypes",
+   "icon": "database",
+   "enabled": false,
+   "title": {
+    "en": "DocTypes",
+    "fr": "DocTypes",
+    "ar": "أنواع المستندات"
+   },
+   "description": {
+    "en": "Discover ERPNext DocTypes, their fields and related reports.",
+    "fr": "Découvrir les DocTypes ERPNext, leurs champs et les rapports associés.",
+    "ar": "اكتشف أنواع مستندات ERPNext وحقولها والتقارير المرتبطة بها."
+   },
+   "keywords": [
+    "doctype",
+    "field",
+    "metadata",
+    "schema",
+    "champ",
+    "حقل",
+    "نوع المستند"
+   ],
+   "questions": [
+    {
+     "id": "dt_customer",
+     "category": "doctypes",
+     "question": {
+      "en": "What is the Customer DocType?",
+      "fr": "Qu'est-ce que le DocType Customer ?",
+      "ar": "ما هو نوع المستند Customer؟"
+     },
+     "intent": "metadata"
+    },
+    {
+     "id": "dt_sales",
+     "category": "doctypes",
+     "question": {
+      "en": "Search for a DocType related to sales.",
+      "fr": "Rechercher un DocType lié aux ventes.",
+      "ar": "ابحث عن نوع مستند متعلق بالمبيعات."
+     },
+     "intent": "metadata",
+     "keywords": [
+      "sales"
+     ]
+    },
+    {
+     "id": "dt_stock",
+     "category": "doctypes",
+     "question": {
+      "en": "Find DocTypes related to stock.",
+      "fr": "Trouver les DocTypes liés au stock.",
+      "ar": "ابحث عن أنواع المستندات المتعلقة بالمخزون."
+     },
+     "intent": "metadata",
+     "keywords": [
+      "stock"
+     ]
+    },
+    {
+     "id": "dt_employee",
+     "category": "doctypes",
+     "question": {
+      "en": "Find the DocType used for employees.",
+      "fr": "Trouver le DocType utilisé pour les employés.",
+      "ar": "ابحث عن نوع المستند المستخدم للموظفين."
+     },
+     "intent": "metadata",
+     "keywords": [
+      "employee"
+     ]
+    },
+    {
+     "id": "dt_fields_si",
+     "category": "doctypes",
+     "question": {
+      "en": "What fields are available in Sales Invoice?",
+      "fr": "Quels champs sont disponibles dans Sales Invoice ?",
+      "ar": "ما الحقول المتاحة في Sales Invoice؟"
+     },
+     "intent": "metadata",
+     "keywords": [
+      "fields"
+     ]
+    },
+    {
+     "id": "dt_fields_customer",
+     "category": "doctypes",
+     "question": {
+      "en": "What fields are available in Customer?",
+      "fr": "Quels champs sont disponibles dans Customer ?",
+      "ar": "ما الحقول المتاحة في Customer؟"
+     },
+     "intent": "metadata",
+     "keywords": [
+      "fields"
+     ]
+    },
+    {
+     "id": "dt_fields_item",
+     "category": "doctypes",
+     "question": {
+      "en": "Show fields of Item.",
+      "fr": "Afficher les champs de Item.",
+      "ar": "اعرض حقول Item."
+     },
+     "intent": "metadata",
+     "keywords": [
+      "fields"
+     ]
+    },
+    {
+     "id": "dt_reports_si",
+     "category": "doctypes",
+     "question": {
+      "en": "Find reports related to Sales Invoice.",
+      "fr": "Trouver les rapports liés à Sales Invoice.",
+      "ar": "ابحث عن التقارير المتعلقة بـ Sales Invoice."
+     },
+     "intent": "metadata",
+     "keywords": [
+      "reports"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "general",
+   "icon": "help-circle",
+   "enabled": true,
+   "title": {
+    "en": "General",
+    "fr": "Général",
+    "ar": "عام"
+   },
+   "description": {
+    "en": "What the chatbot can do and how to ask.",
+    "fr": "Ce que le chatbot peut faire et comment poser vos questions.",
+    "ar": "ما يمكن للمساعد فعله وكيفية طرح الأسئلة."
+   },
+   "keywords": [
+    "help",
+    "general",
+    "how",
+    "aide",
+    "comment",
+    "مساعدة",
+    "كيف"
+   ],
+   "questions": [
+    {
+     "id": "gen_what",
+     "category": "general",
+     "question": {
+      "en": "What can you do?",
+      "fr": "Que peux-tu faire ?",
+      "ar": "ماذا يمكنك أن تفعل؟"
+     },
+     "intent": "help"
+    },
+    {
+     "id": "gen_info",
+     "category": "general",
+     "question": {
+      "en": "What information can I search?",
+      "fr": "Quelles informations puis-je rechercher ?",
+      "ar": "ما المعلومات التي يمكنني البحث عنها؟"
+     },
+     "intent": "help"
+    },
+    {
+     "id": "gen_reports",
+     "category": "general",
+     "question": {
+      "en": "What reports are available?",
+      "fr": "Quels rapports sont disponibles ?",
+      "ar": "ما التقارير المتاحة؟"
+     },
+     "intent": "help",
+     "enabled": false
+    },
+    {
+     "id": "gen_doctypes",
+     "category": "general",
+     "question": {
+      "en": "Which DocTypes can I search?",
+      "fr": "Quels DocTypes puis-je consulter ?",
+      "ar": "ما أنواع المستندات التي يمكنني البحث فيها؟"
+     },
+     "intent": "help",
+     "enabled": false
+    },
+    {
+     "id": "gen_order",
+     "category": "general",
+     "question": {
+      "en": "How can I search an order?",
+      "fr": "Comment rechercher une commande ?",
+      "ar": "كيف يمكنني البحث عن طلب؟"
+     },
+     "intent": "help",
+     "keywords": [
+      "order"
+     ]
+    },
+    {
+     "id": "gen_stock",
+     "category": "general",
+     "question": {
+      "en": "How can I search stock?",
+      "fr": "Comment rechercher le stock ?",
+      "ar": "كيف يمكنني البحث عن المخزون؟"
+     },
+     "intent": "help",
+     "keywords": [
+      "stock"
+     ]
+    },
+    {
+     "id": "gen_customer",
+     "category": "general",
+     "question": {
+      "en": "How can I search a customer?",
+      "fr": "Comment rechercher un client ?",
+      "ar": "كيف يمكنني البحث عن عميل؟"
+     },
+     "intent": "help",
+     "keywords": [
+      "customer"
+     ]
+    },
+    {
+     "id": "gen_calc",
+     "category": "general",
+     "question": {
+      "en": "How can I calculate sales?",
+      "fr": "Comment calculer les ventes ?",
+      "ar": "كيف يمكنني حساب المبيعات؟"
+     },
+     "intent": "help",
+     "keywords": [
+      "calculate"
+     ]
+    },
+    {
+     "id": "gen_report",
+     "category": "general",
+     "question": {
+      "en": "How can I generate a report?",
+      "fr": "Comment générer un rapport ?",
+      "ar": "كيف يمكنني إنشاء تقرير؟"
+     },
+     "intent": "help",
+     "keywords": [
+      "report"
+     ]
+    }
+   ]
+  }
+ ]
+}

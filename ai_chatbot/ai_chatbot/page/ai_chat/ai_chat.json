@@ -9,7 +9,7 @@
  "name": "ai-chat",
  "owner": "Administrator",
  "page_name": "ai-chat",
- "roles": [{"role": "Desk User"}, {"role": "System Manager"}],
+ "roles": [{"role": "All"}],
  "script": null,
  "standard": "Yes",
  "style": null,

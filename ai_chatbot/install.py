@@ -11,6 +11,9 @@ def after_install():
 
 def after_migrate():
 	ensure_workspace()
+	from ai_chatbot.services import help_service
+
+	help_service.clear_cache()
 
 
 def before_uninstall():

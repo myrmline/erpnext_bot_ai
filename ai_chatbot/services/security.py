@@ -112,6 +112,22 @@ def set_statement_timeout(seconds=15):
 		pass
 
 
+# -------------------------------------------------------------- super admin
+SUPER_ROLES = frozenset({"System Manager", "Administrator"})
+
+
+def is_super(user=None):
+	"""Administrator, or anyone holding the System Manager role, always sees full data
+	(still limited to the DocType allow/block-lists and never bypasses read-only)."""
+	user = user or frappe.session.user
+	if user == "Administrator":
+		return True
+	settings = get_settings()
+	if not settings.get("super_admin_full_access", 1):
+		return False
+	return bool(SUPER_ROLES & set(frappe.get_roles(user)))
+
+
 # ------------------------------------------------------------------- doctypes
 def configured_doctypes():
 	raw = (get_settings().allowed_doctypes or "").strip() or "\n".join(DEFAULT_ALLOWED_DOCTYPES)
@@ -130,25 +146,31 @@ def configured_doctypes():
 
 
 def readable_doctypes():
-	"""Allow-listed DocTypes the *current user* may read."""
+	"""Allow-listed DocTypes the *current user* may read (Administrator / System Manager get all of them)."""
+	if is_super():
+		return configured_doctypes()
 	return [dt for dt in configured_doctypes() if frappe.has_permission(dt, "read")]
 
 
 def assert_doctype_allowed(doctype, lang="en"):
 	if not isinstance(doctype, str) or doctype in BLOCKED_DOCTYPES or doctype not in configured_doctypes():
 		raise ChatbotDenied(t("This data type is not available to the chatbot: {0}", lang, str(doctype)[:60]))
-	if not frappe.has_permission(doctype, "read"):
+	if not is_super() and not frappe.has_permission(doctype, "read"):
 		raise ChatbotDenied(t("You do not have permission to access this data.", lang))
 
 
 # --------------------------------------------------------------------- fields
 def field_map(doctype):
-	"""{fieldname: {label, fieldtype, options}} of fields the current user may read."""
+	"""{fieldname: {label, fieldtype, options}} of fields the current user may read
+	(Administrator / System Manager get every field regardless of permlevel)."""
 	meta = frappe.get_meta(doctype)
-	try:
-		levels = {cint(x) for x in meta.get_permlevel_access("read")}
-	except Exception:
-		levels = {0}
+	super_user = is_super()
+	levels = None
+	if not super_user:
+		try:
+			levels = {cint(x) for x in meta.get_permlevel_access("read")}
+		except Exception:
+			levels = {0}
 	out = {k: {"label": v[0], "fieldtype": v[1], "options": v[2]} for k, v in STANDARD_FIELDS.items()}
 	for df in meta.fields:
 		if (
@@ -156,7 +178,7 @@ def field_map(doctype):
 			or not df.fieldname
 			or not IDENT.match(df.fieldname)
 			or SENSITIVE_FIELD.search(df.fieldname)
-			or cint(df.permlevel) not in levels
+			or (levels is not None and cint(df.permlevel) not in levels)
 		):
 			continue
 		out[df.fieldname] = {"label": df.label or df.fieldname, "fieldtype": df.fieldtype, "options": df.options}

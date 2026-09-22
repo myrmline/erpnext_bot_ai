@@ -24,6 +24,30 @@ bench restart            # production: sudo supervisorctl restart all
 An **AI Chatbot** item appears in the sidebar and on the Apps screen; it opens `/app/ai-chat`.
 Uninstall: `bench --site yoursite.local uninstall-app ai_chatbot`.
 
+## Engine toggle (per user, per message)
+
+Next to the message box is an **Advanced AI (LLM)** checkbox:
+
+* **Off (default when no provider is configured):** every question is answered by the built-in, offline `services/intents.py` engine only. No data or question text ever leaves your server.
+* **On:** the message is planned by the configured Anthropic / OpenAI-compatible provider instead (see *Configure* below). If no provider is configured, or the request fails, the chatbot answers with the built-in engine anyway and says so in the reply.
+
+The choice is per user (saved in the browser, `ai_chatbot_use_llm:<user>`) and can be changed on every message; it never changes the admin's configured default for other users. The checkbox is disabled, with an explanatory note, when no AI provider is configured in **AI Chatbot Settings**. The page's status indicator always reflects which engine actually answered the last message.
+
+`ai_chatbot.api.chat` accepts an optional `use_llm` (`1`/`0`) parameter for this; omitting it keeps the admin's configured default, which is also what `ai_chatbot.api.get_config`'s `mode`/`llm_available` fields describe.
+
+## Help / example questions
+
+Click **Help** (bottom-left of the message box, bottom-right in RTL languages) to browse and search example questions.
+Clicking one inserts it into the message box; it is only sent automatically if you enable *Send Help Questions Immediately* in the settings.
+
+* Content lives in `ai_chatbot/help/questions.json` (categories, per-language titles/descriptions/questions, optional `keywords`, `intent`, `doctype`, `enabled`).
+  The UI contains **no** question text: it renders whatever `GET /api/method/ai_chatbot.api.help.get_questions?language=fr&category=sales&search=stock` returns.
+* Languages are read from the file (`"languages"`) and resolved with fallback `fr-CA -> fr -> en`; add a language by adding keys to the JSON, no code change.
+* Cached in Redis; the cache key includes the file's modification time, so editing the file is picked up automatically (also cleared on `bench migrate`).
+* Questions whose `doctype` the current user cannot read (or that is not in *Queryable DocTypes*) are hidden, so users are only shown what can work for them.
+  `"enabled": false` on a question or category hides it (used for features the query engine does not implement yet: reports, DocType discovery, month grouping, child-table breakdowns).
+* Help never executes anything; questions go through the normal plan -> validation -> permission pipeline.
+
 ## Configure (System Manager) — search "AI Chatbot Settings"
 
 | Setting | Meaning |
@@ -31,6 +55,7 @@ Uninstall: `bench --site yoursite.local uninstall-app ai_chatbot`.
 | Queryable DocTypes | Allow-list, one per line. Nothing outside it is ever queried. |
 | Provider | *Built-in* (default, offline rules, no data leaves your server) or *Anthropic* / *OpenAI-compatible* (LLM plans the query for free-form questions). |
 | Let the AI write the final answer | Off by default. When on, result rows (already permission-filtered) are sent to the provider. |
+| Super Admins See All Data | On by default. Administrator and any user with the System Manager role bypass document- and field-level permission checks for allow-listed DocTypes (the DocType allow-list and blocked DocTypes still always apply). |
 | Max rows / rate limit | Caps per answer and per user per minute. |
 | Audit log | Every question, executed plan, status and duration is stored in **AI Chatbot Log** (auto-purged). |
 
@@ -41,16 +66,17 @@ If the LLM is unreachable or returns an invalid plan the built-in engine answers
 ## How security works
 
 1. **Session user only.** Endpoints are `@frappe.whitelist(methods=["POST"/"GET"])`, System Users only; CSRF protected by Frappe.
-2. **No SQL from the bot.** The engine (LLM or rules) can only emit a *plan* made of 3 read-only tools (`count`, `list`, `aggregate`).
+2. **Super admins.** Administrator and System Manager users always see full data for allow-listed DocTypes (toggle in settings); every other user is filtered by their normal ERPNext role, user, sharing and field-level permissions.
+3. **No SQL from the bot.** The engine (LLM or rules) can only emit a *plan* made of 3 read-only tools (`count`, `list`, `aggregate`).
    Plans are validated (DocType allow-list + hard block-list, field names checked against DocType meta, operator/value whitelist,
    max 4 steps, max 8 filters) and executed with `frappe.get_list`, which enforces **role permissions, user permissions,
    document sharing and field-level (permlevel) access** for the current user.
-3. **Read-only by construction.** No code path inserts, updates, submits, cancels or deletes business documents
+4. **Read-only by construction.** No code path inserts, updates, submits, cancels or deletes business documents
    (the only write is the app's own audit log entry).
-4. Sensitive fields (password/secret/token/api_key...), Password/Attach/Code fields, and system DocTypes
+5. Sensitive fields (password/secret/token/api_key...), Password/Attach/Code fields, and system DocTypes
    (User, Role, DocPerm, Error Log, OAuth*, Settings...) are never exposed.
-5. Rate limiting, DB statement timeout (MariaDB `max_statement_time`), row caps, input length cap, XSS-safe rendering.
-6. Prompt injection: the LLM has no tools besides producing a plan that is re-validated server-side.
+6. Rate limiting, DB statement timeout (MariaDB `max_statement_time`), row caps, input length cap, XSS-safe rendering.
+7. Prompt injection: the LLM has no tools besides producing a plan that is re-validated server-side.
 
 Privacy note: in LLM mode the question and the *schema* (DocType/field names the user may read) are sent to the provider.
 Row data is sent only if "Let the AI write the final answer" is enabled.
@@ -61,12 +87,14 @@ Row data is sent only if "Let the AI write the final answer" is enabled.
 ai_chatbot/
 ├─ pyproject.toml · README.md · license.txt
 └─ ai_chatbot/
-   ├─ hooks.py · install.py (sidebar Workspace) · tasks.py (log purge) · api.py (endpoints)
-   ├─ services/  security.py · query_engine.py · intents.py · llm.py · chatbot.py · messages.py
+   ├─ hooks.py · install.py (sidebar Workspace) · tasks.py (log purge)
+   ├─ api/  __init__.py (chat, get_config) · help.py (get_questions)
+   ├─ help/questions.json   (all example questions, en/fr/ar)
+   ├─ services/  help_service.py · security.py · query_engine.py · intents.py · llm.py · chatbot.py · messages.py
    ├─ ai_chatbot/           (module)
    │  ├─ doctype/ai_chatbot_settings · ai_chatbot_log
    │  └─ page/ai_chat/      (chat UI: ai_chat.js)
-   ├─ public/  css/ai_chatbot.css · js/ai_chatbot_boot.js · images/
+   ├─ public/  css/ai_chatbot.css · js/ai_chatbot_boot.js · js/ai_chatbot_help.js · images/
    ├─ translations/ ar.csv · fr.csv
    └─ tests/
 ```
@@ -89,4 +117,3 @@ ai_chatbot/
 * Chat history is stored in the browser (localStorage, per user); "New chat" clears it.
 * v16: the sidebar entry is a Workspace redirected to the page by `ai_chatbot_boot.js`; if your v16 build
   changes workspace routes, the Apps-screen tile and `/app/ai-chat` still work.
-# erpnext_bot_ai
