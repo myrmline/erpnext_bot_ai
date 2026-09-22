@@ -16,7 +16,6 @@ def _has(text, kws):
 
 
 GREETINGS = _k("hi", "hello", "hey", "help", "bonjour", "salut", "bonsoir", "aide", "مرحبا", "اهلا", "السلام عليكم", "مساعدة")
-HELP_KW = _k("what can you do", "what do you do", "what information", "how can i", "how do i", "que peux tu faire", "que sais tu faire", "quelles informations", "comment puis je", "comment rechercher", "comment generer", "comment calculer", "ماذا يمكنك", "ما الذي يمكنك", "ما المعلومات", "كيف يمكنني", "كيف ابحث")
 COUNT_KW = _k("how many", "combien", "nombre", "number of", "count", "كم", "عدد")
 UNPAID_KW = _k("unpaid", "outstanding", "overdue", "not paid", "impaye", "non paye", "en retard", "retard", "غير مدفوع", "غير المدفوع", "غير مسدد", "غير المسدد", "مستحق", "متأخر", "متاخر")
 OVERDUE_KW = _k("overdue", "en retard", "retard", "متأخر", "متاخر")
@@ -154,9 +153,6 @@ def build_plan(message, lang="en"):
 
 	if text in GREETINGS or (len(text.split()) <= 2 and _has(text, GREETINGS)):
 		return {"steps": [], "reply": t("Hello! I can answer questions about your ERPNext data. Try one of the examples below.", lang)}
-
-	if _has(text, HELP_KW):
-		return {"steps": [], "reply": t("I can answer questions about your ERPNext data, such as sales, purchases, customers, suppliers and stock. Click the Help button next to the message box to browse example questions.", lang)}
 
 	if _has(text, UNPAID_KW):
 		return _unpaid(text, lang)

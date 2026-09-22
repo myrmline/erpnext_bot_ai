@@ -15,10 +15,7 @@ def _log():
 	return frappe.logger("ai_chatbot", allow_site=True, file_count=5)
 
 
-def handle_message(message, history=None, use_llm=None):
-	"""use_llm: None = use the admin's configured default (existing behaviour).
-	True = the user asked for advanced AI mode for this message.
-	False = the user asked to force the built-in, offline engine for this message."""
+def handle_message(message, history=None):
 	started = time.monotonic()
 	user = frappe.session.user
 	settings = security.get_settings()
@@ -37,12 +34,11 @@ def handle_message(message, history=None, use_llm=None):
 		_check_rate_limit(settings, lang)
 		security.set_statement_timeout()
 
-		plan, mode, notice = _make_plan(message, history, settings, lang, use_llm)
+		plan, mode = _make_plan(message, history, settings, lang)
 		out["mode"] = mode
 
 		if not plan.get("steps"):
-			reply = cstr(plan.get("reply") or t("No results found.", lang))[:1000]
-			out.update(ok=True, reply=_prefix(notice, reply))
+			out.update(ok=True, reply=cstr(plan.get("reply") or t("No results found.", lang))[:1000])
 			status = "Success"
 		else:
 			try:
@@ -61,7 +57,7 @@ def handle_message(message, history=None, use_llm=None):
 			if out["mode"] == "llm" and settings.llm_summarize and result["blocks"]:
 				text = llm.summarize(message, result["blocks"], lang) or text
 			rows = result["rows"]
-			out.update(ok=True, reply=_prefix(notice, text), blocks=result["blocks"])
+			out.update(ok=True, reply=text, blocks=result["blocks"])
 			status = "Success"
 
 	except security.ChatbotDenied as e:
@@ -87,48 +83,20 @@ def handle_message(message, history=None, use_llm=None):
 	return out
 
 
-def _prefix(notice, text):
-	return f"{notice}\n\n{text}" if notice else text
-
-
-def _make_plan(message, history, settings, lang, use_llm):
-	"""Returns (plan, mode, notice). `mode` is what actually answered the
-	question ("llm" or "rules"); `notice` is an optional user-facing heads-up,
-	e.g. when advanced AI mode was requested but isn't configured."""
-	available = security.llm_enabled(settings)
-	notice = None
-
-	if use_llm is False:
-		want_llm = False
-	elif use_llm is True:
-		want_llm = available
-		if not available:
-			notice = t(
-				"Advanced AI mode is not configured by your administrator. Answering with the built-in engine instead.",
-				lang,
-			)
-	else:  # use_llm is None: fall back to the admin's configured default
-		want_llm = available
-
-	if want_llm:
+def _make_plan(message, history, settings, lang):
+	if security.llm_enabled(settings):
 		try:
 			plan = llm.plan(message, history, lang)
 			if plan.get("steps") or plan.get("reply"):
-				return plan, "llm", notice
+				return plan, "llm"
 		except llm.LLMError as e:
 			_log().warning(f"LLM planning failed, using built-in rules: {e}")
-			if use_llm is True:
-				notice = t(
-					"Advanced AI mode is temporarily unavailable. Answering with the built-in engine instead.",
-					lang,
-				)
-
 	plan = intents.build_plan(message, lang)
 	if plan:
-		return plan, "rules", notice
+		return plan, "rules"
 	return {"steps": [], "reply": t(
 		"Sorry, I did not understand that question. Try for example: Show me today's sales, How many customers do we have?, What are the unpaid invoices?",
-		lang)}, "rules", notice
+		lang)}, "rules"
 
 
 def _check_rate_limit(settings, lang):

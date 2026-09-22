@@ -13,6 +13,31 @@ frappe.pages["ai-chat"].on_page_show = function (wrapper) {
 	if (wrapper.ai_chat) wrapper.ai_chat.focus();
 };
 
+ai_chatbot.EXAMPLES = {
+	en: [
+		"Show me today's sales.",
+		"How many customers do we have?",
+		"What are the unpaid invoices?",
+		"Give me a summary of this month's purchases.",
+		"Show the stock status.",
+	],
+	fr: [
+		"Montre-moi les ventes d'aujourd'hui.",
+		"Combien de clients avons-nous ?",
+		"Quelles sont les factures impayées ?",
+		"Donne-moi un résumé des achats de ce mois.",
+		"Affiche l'état du stock.",
+	],
+	ar: [
+		"اعرض مبيعات اليوم.",
+		"كم عدد العملاء لدينا؟",
+		"ما هي الفواتير غير المدفوعة؟",
+		"أعطني ملخص مشتريات هذا الشهر.",
+		"اعرض حالة المخزون.",
+	],
+};
+ai_chatbot.LANG_NAMES = { en: "English", fr: "Français", ar: "العربية" };
+
 ai_chatbot.Chat = class Chat {
 	constructor(page, wrapper) {
 		this.page = page;
@@ -20,19 +45,14 @@ ai_chatbot.Chat = class Chat {
 		this.busy = false;
 		this.enabled = true;
 		this.storage_key = `ai_chatbot_history:${frappe.session.user}`;
-		this.llm_pref_key = `ai_chatbot_use_llm:${frappe.session.user}`;
 		this.messages = this.load();
-		this.help_auto_send = false;
-		this.llm_available = false;
-		this.use_llm = false;
-		this.featured = [];
-		this.help = new ai_chatbot.Help({ on_select: (q) => this.use_question(q) });
+		const lang = (frappe.boot.lang || "en").slice(0, 2);
+		this.example_lang = ai_chatbot.EXAMPLES[lang] ? lang : "en";
 
 		this.make();
 		this.render_all();
 		this.page.set_secondary_action(__("New chat"), () => this.reset(), "refresh");
 		this.load_config();
-		this.load_featured();
 	}
 
 	// ---------------------------------------------------------------- layout
@@ -41,22 +61,11 @@ ai_chatbot.Chat = class Chat {
 		this.$main.html(`
 			<div class="aic">
 				<div class="aic-messages" role="log" aria-live="polite"></div>
-				<div class="aic-options">
-					<label class="aic-llm-toggle" title="${frappe.utils.escape_html(__("When off, questions are answered by the built-in rule-based engine only (no data leaves your server). When on, a configured AI provider is used to understand free-form questions."))}">
-						<input type="checkbox" class="aic-llm-checkbox" disabled>
-						<span>${frappe.utils.escape_html(__("Advanced AI (LLM)"))}</span>
-					</label>
-					<span class="aic-llm-status text-muted small"></span>
-				</div>
 				<div class="aic-composer">
-					<button class="btn btn-default aic-help-btn" type="button" title="${frappe.utils.escape_html(__("Browse example questions"))}" aria-label="${frappe.utils.escape_html(__("Browse example questions"))}">
-						${ai_chatbot.icon(["es-line-help", "es-line-question", "help"], "sm", "<b>?</b>")}
-						<span class="aic-help-label">${frappe.utils.escape_html(__("Help"))}</span>
-					</button>
 					<textarea class="form-control aic-input" dir="auto" rows="1" maxlength="500"
 						placeholder="${frappe.utils.escape_html(__("Ask a question about your ERPNext data..."))}"></textarea>
 					<button class="btn btn-primary aic-send" type="button" aria-label="${frappe.utils.escape_html(__("Send"))}">
-						${ai_chatbot.icon(["es-line-arrow-up-right", "es-line-arrow-up"], "sm", "&#10148;")}
+						${frappe.utils.icon("es-line-arrow-up-right", "sm")}
 					</button>
 				</div>
 				<div class="aic-hint text-muted small">
@@ -66,20 +75,8 @@ ai_chatbot.Chat = class Chat {
 		this.$messages = this.$main.find(".aic-messages");
 		this.$input = this.$main.find(".aic-input");
 		this.$send = this.$main.find(".aic-send");
-		this.$llm_checkbox = this.$main.find(".aic-llm-checkbox");
-		this.$llm_status = this.$main.find(".aic-llm-status");
 
 		this.$send.on("click", () => this.send());
-		this.$main.find(".aic-help-btn").on("click", () => this.help.open());
-		this.$llm_checkbox.on("change", () => {
-			this.use_llm = this.$llm_checkbox.prop("checked");
-			try {
-				localStorage.setItem(this.llm_pref_key, this.use_llm ? "1" : "0");
-			} catch (e) {
-				/* storage full or disabled: preference just won't persist across reloads */
-			}
-			this.update_llm_status();
-		});
 		this.$input.on("keydown", (e) => {
 			if (e.key === "Enter" && !e.shiftKey && !e.originalEvent.isComposing) {
 				e.preventDefault();
@@ -104,68 +101,17 @@ ai_chatbot.Chat = class Chat {
 			no_spinner: true,
 			callback: (r) => {
 				const c = r.message || {};
-				this.help_auto_send = !!c.help_auto_send;
-				if (c.auth_required) {
-					this.enabled = false;
-					this.set_busy(true);
-					this.page.set_indicator(__("Session expired"), "red");
-					this.append({ role: "bot", text: c.error || __("Your session has expired. Please refresh the page and sign in again."), error: true, reload: true }, false);
-					return;
-				}
 				this.enabled = !!c.enabled;
-				this.llm_available = !!c.llm_available;
-
-				// per-user preference persists across sessions; falls back to the admin's default the first time
-				let pref = null;
-				try {
-					pref = localStorage.getItem(this.llm_pref_key);
-				} catch (e) {
-					/* storage disabled: just use the admin's default every time */
-				}
-				this.use_llm = this.llm_available && (pref === null ? c.mode === "llm" : pref === "1");
-				this.$llm_checkbox.prop("checked", this.use_llm).prop("disabled", !this.llm_available);
-				this.update_llm_status();
-
+				this.page.set_indicator(
+					this.enabled ? (c.mode === "llm" ? __("AI-assisted") : __("Built-in engine")) : __("Disabled"),
+					this.enabled ? "green" : "red"
+				);
 				if (!this.enabled) {
-					this.page.set_indicator(__("Disabled"), "red");
 					this.set_busy(true);
 					this.append({ role: "bot", text: __("The chatbot is disabled. Please contact your administrator."), error: true }, false);
 				}
 			},
-			error: () => {
-				// network/server error fetching config: don't block the composer, just skip the indicator
-			},
 		});
-	}
-
-	update_llm_status() {
-		if (!this.llm_available) {
-			this.$llm_status.text(__("Ask your administrator to configure an AI provider to enable this."));
-		} else {
-			this.$llm_status.text("");
-		}
-		this.set_mode_indicator(this.use_llm ? "llm" : "rules");
-	}
-
-	set_mode_indicator(mode) {
-		if (!this.enabled) return;
-		this.page.set_indicator(mode === "llm" ? __("AI-assisted") : __("Built-in engine"), mode === "llm" ? "green" : "blue");
-	}
-
-	load_featured() {
-		ai_chatbot.Help.fetch({ language: frappe.boot.lang })
-			.then((res) => {
-				this.featured = (res && res.featured) || [];
-				if (!this.messages.length) this.render_all();
-			})
-			.catch(() => {});
-	}
-
-	// Help never runs anything itself: it only fills the input (or sends if the admin enabled it).
-	use_question(q) {
-		if (this.help_auto_send) return this.send(q);
-		this.$input.val(q).trigger("input");
-		this.focus();
 	}
 
 	// --------------------------------------------------------------- history
@@ -214,30 +160,30 @@ ai_chatbot.Chat = class Chat {
 			role: "bot",
 			text: __("Hello! I can answer questions about your ERPNext data. Try one of the examples below."),
 		}, true));
-		if (this.featured.length) {
-			const $chips = $(`<div class="aic-chips"></div>`);
-			this.featured.forEach((f) => {
-				$(`<button type="button" class="aic-chip" dir="auto"></button>`).text(f.question).on("click", () => this.send(f.question)).appendTo($chips);
-			});
-			$w.append($chips);
-		}
+		const $langs = $(`<div class="aic-langs"></div>`);
+		Object.keys(ai_chatbot.EXAMPLES).forEach((code) => {
+			$(`<button type="button" class="aic-lang ${code === this.example_lang ? "active" : ""}"></button>`)
+				.text(ai_chatbot.LANG_NAMES[code])
+				.on("click", () => { this.example_lang = code; this.render_all(); })
+				.appendTo($langs);
+		});
+		const $chips = $(`<div class="aic-chips"></div>`);
+		ai_chatbot.EXAMPLES[this.example_lang].forEach((q) => {
+			$(`<button type="button" class="aic-chip" dir="auto"></button>`).text(q).on("click", () => this.send(q)).appendTo($chips);
+		});
+		$w.append($langs, $chips);
 		this.$messages.append($w);
 	}
 
 	render_message(m, no_time) {
 		const $row = $(`<div class="aic-row aic-${m.role}${m.error ? " aic-error" : ""}"></div>`);
 		if (m.role === "bot") {
-			$row.append(`<div class="aic-avatar" aria-hidden="true">${ai_chatbot.icon("es-line-chat-alt", "sm", "AI")}</div>`);
+			$row.append(`<div class="aic-avatar" aria-hidden="true">${frappe.utils.icon("es-line-chat-alt", "sm")}</div>`);
 		}
 		const $bubble = $(`<div class="aic-bubble" dir="auto"></div>`);
 		if (m.text) $bubble.append(`<div class="aic-text">${this.md(m.text)}</div>`);
 		(m.blocks || []).forEach((b) => $bubble.append(this.render_block(b)));
-		if (m.error && m.reload) {
-			$(`<button type="button" class="btn btn-xs btn-primary aic-retry"></button>`)
-				.text(__("Reload page"))
-				.on("click", () => window.location.reload())
-				.appendTo($bubble);
-		} else if (m.error && m.retry) {
+		if (m.error && m.retry) {
 			$(`<button type="button" class="btn btn-xs btn-default aic-retry"></button>`)
 				.text(__("Retry"))
 				.on("click", () => this.send(m.retry))
@@ -321,7 +267,7 @@ ai_chatbot.Chat = class Chat {
 
 	show_typing() {
 		const $t = $(`<div class="aic-row aic-bot aic-typing" aria-label="${frappe.utils.escape_html(__("Thinking..."))}">
-			<div class="aic-avatar">${ai_chatbot.icon("es-line-chat-alt", "sm", "AI")}</div>
+			<div class="aic-avatar">${frappe.utils.icon("es-line-chat-alt", "sm")}</div>
 			<div class="aic-bubble"><span class="aic-dot"></span><span class="aic-dot"></span><span class="aic-dot"></span></div></div>`);
 		this.$messages.append($t);
 		this.scroll();
@@ -342,17 +288,12 @@ ai_chatbot.Chat = class Chat {
 		frappe.call({
 			method: "ai_chatbot.api.chat",
 			type: "POST",
-			args: { message: text, history: JSON.stringify(history), use_llm: this.use_llm ? 1 : 0 },
+			args: { message: text, history: JSON.stringify(history) },
 			no_spinner: true,
 			callback: (r) => {
 				const m = r.message || {};
 				if (m.ok) {
 					this.append({ role: "bot", text: m.reply, blocks: m.blocks || [] });
-					if (m.mode === "llm" || m.mode === "rules") this.set_mode_indicator(m.mode);
-				} else if (m.auth_required) {
-					this.enabled = false;
-					this.page.set_indicator(__("Session expired"), "red");
-					this.append({ role: "bot", text: m.error || m.reply, error: true, reload: true });
 				} else {
 					this.append({ role: "bot", text: m.error || m.reply || __("Something went wrong while processing your request. Please try again."), error: true, retry: text });
 				}

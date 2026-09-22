@@ -13,6 +13,9 @@
 
 /* welcome + examples */
 .aic-welcome { display: flex; flex-direction: column; gap: 12px; margin: auto 0; }
+.aic-langs { display: flex; gap: 6px; padding-inline-start: 40px; }
+.aic-lang { border: 0; background: none; color: var(--text-muted); padding: 2px 8px; border-radius: 999px; font-size: var(--text-sm); }
+.aic-lang.active { background: var(--control-bg); color: var(--text-color); font-weight: 600; }
 .aic-chips { display: flex; flex-wrap: wrap; gap: 8px; padding-inline-start: 40px; }
 .aic-chip { border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 999px; padding: 6px 14px; font-size: var(--text-md); text-align: start; }
 .aic-chip:hover, .aic-chip:focus-visible { border-color: var(--primary); color: var(--primary); }
@@ -47,40 +50,6 @@
 
 @media (max-width: 768px) {
 	.aic { height: calc(100vh - 170px); }
-	.aic-chips { padding-inline-start: 0; }
-	.aic-help-label { display: none; }
+	.aic-chips, .aic-langs { padding-inline-start: 0; }
 	.aic-bubble { max-width: 100%; }
 }
-
-/* help button: sits at the start (bottom-left in LTR, bottom-right in RTL) of the composer */
-.aic-help-btn { height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; flex: 0 0 auto; }
-
-/* help dialog: theme variables => light/dark + RTL for free */
-.aic-help { display: flex; flex-direction: column; gap: 12px; }
-.aic-help-cats { display: flex; flex-wrap: wrap; gap: 6px; }
-.aic-help-cat { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 999px; padding: 3px 12px; font-size: var(--text-sm); }
-.aic-help-cat:hover, .aic-help-cat:focus-visible { border-color: var(--primary); }
-.aic-help-cat.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-.aic-help-letter { width: 16px; height: 16px; border-radius: 50%; background: var(--control-bg); color: var(--text-color); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
-.aic-help-list { max-height: min(55vh, 520px); overflow-y: auto; padding-inline-end: 4px; }
-.aic-help-section + .aic-help-section { margin-top: 18px; }
-.aic-help-cat-title { display: flex; align-items: center; gap: 8px; margin: 0 0 2px; font-weight: 600; }
-.aic-help-cat-desc { margin: 0 0 8px; }
-.aic-help-questions { display: flex; flex-direction: column; gap: 4px; }
-.aic-help-q { text-align: start; border: 1px solid transparent; background: var(--control-bg); color: var(--text-color); border-radius: var(--border-radius-md); padding: 8px 12px; width: 100%; }
-.aic-help-q:hover, .aic-help-q:focus-visible { border-color: var(--primary); color: var(--primary); outline: none; }
-.aic-help-empty { padding: 24px 0; text-align: center; }
-
-/* Help: questions the current user may not have data-access to are still shown
-   (only the chat endpoint enforces the real permission check), just muted with a lock hint. */
-.aic-help-q-restricted { opacity: .6; }
-.aic-help-q-restricted:hover, .aic-help-q-restricted:focus-visible { opacity: 1; }
-.aic-help-lock { display: inline-flex; margin-inline-end: 6px; vertical-align: -1px; }
-
-/* Engine toggle: force the built-in rule engine or opt into the configured AI provider */
-.aic-options { display: flex; align-items: center; gap: 10px; padding: 2px var(--padding-sm) 4px; flex-wrap: wrap; }
-.aic-llm-toggle { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; font-size: var(--text-sm); color: var(--text-color); cursor: pointer; }
-.aic-llm-toggle input[type="checkbox"] { margin: 0; cursor: pointer; }
-.aic-llm-toggle input[type="checkbox"]:disabled { cursor: not-allowed; }
-.aic-llm-toggle:has(input:disabled) { color: var(--text-muted); cursor: not-allowed; }
-.aic-llm-status { flex: 1; text-align: end; }

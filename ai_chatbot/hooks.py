@@ -10,10 +10,7 @@ required_apps = ["frappe", "erpnext"]
 # Desk assets (styles + sidebar redirect). The chat page itself lives in
 # ai_chatbot/ai_chatbot/page/ai_chat and is served at /app/ai-chat
 app_include_css = "/assets/ai_chatbot/css/ai_chatbot.css"
-app_include_js = [
-	"/assets/ai_chatbot/js/ai_chatbot_boot.js",
-	"/assets/ai_chatbot/js/ai_chatbot_help.js",
-]
+app_include_js = "/assets/ai_chatbot/js/ai_chatbot_boot.js"
 
 # Tile on the Frappe "Apps" screen (v15+)
 add_to_apps_screen = [
